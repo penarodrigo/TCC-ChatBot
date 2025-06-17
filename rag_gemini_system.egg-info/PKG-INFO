@@ -1,0 +1,67 @@
+Metadata-Version: 2.4
+Name: rag-gemini-system
+Version: 1.0.0
+Summary: Sistema RAG (Retrieval-Augmented Generation) com Google Gemini
+Home-page: https://github.com/penarodrigo/rag-gemini-system
+Author: penarodrigo
+Author-email: rodrigo.pena@cemig.com.br
+License: MIT
+Project-URL: Bug Reports, https://github.com/penarodrigo/rag-gemini-system/issues
+Project-URL: Source, https://github.com/penarodrigo/rag-gemini-system
+Project-URL: Documentation, https://github.com/penarodrigo/rag-gemini-system/wiki
+Keywords: rag,retrieval-augmented-generation,google-gemini,ai,nlp,machine-learning,embeddings,document-processing,question-answering,chatbot,cemig,energy,flask,api
+Platform: any
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Text Processing :: Linguistic
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: OS Independent
+Classifier: Framework :: Flask
+Classifier: Natural Language :: Portuguese (Brazilian)
+Classifier: Natural Language :: English
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4.3; extra == "dev"
+Requires-Dist: pytest-flask>=1.3.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.1.0; extra == "dev"
+Requires-Dist: black>=23.9.1; extra == "dev"
+Requires-Dist: flake8>=6.1.0; extra == "dev"
+Requires-Dist: mypy>=1.6.1; extra == "dev"
+Provides-Extra: gpu
+Requires-Dist: faiss-gpu>=1.7.4; extra == "gpu"
+Provides-Extra: docs
+Requires-Dist: sphinx>=7.2.6; extra == "docs"
+Requires-Dist: sphinx-rtd-theme>=1.3.0; extra == "docs"
+Provides-Extra: all
+Requires-Dist: pytest>=7.4.3; extra == "all"
+Requires-Dist: pytest-flask>=1.3.0; extra == "all"
+Requires-Dist: pytest-cov>=4.1.0; extra == "all"
+Requires-Dist: black>=23.9.1; extra == "all"
+Requires-Dist: flake8>=6.1.0; extra == "all"
+Requires-Dist: mypy>=1.6.1; extra == "all"
+Requires-Dist: faiss-gpu>=1.7.4; extra == "all"
+Requires-Dist: sphinx>=7.2.6; extra == "all"
+Requires-Dist: sphinx-rtd-theme>=1.3.0; extra == "all"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: platform
+Dynamic: project-url
+Dynamic: provides-extra
+Dynamic: requires-python
+Dynamic: summary
+
+Sistema RAG (Retrieval-Augmented Generation) com Google Gemini

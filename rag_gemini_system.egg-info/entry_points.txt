@@ -1,0 +1,3 @@
+[console_scripts]
+rag-gemini = rag_gemini_improved:main
+rag-server = rag_gemini_improved:run_server
