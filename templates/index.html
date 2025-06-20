@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title> <!-- O título virá do Flask -->
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            margin: 0;
+            padding: 0;
+            background-color: #eef1f5; /* Um cinza azulado bem claro para o fundo */
+            color: #333333; /* Cor de texto principal mais escura para contraste */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinha ao topo para permitir scroll */
+            min-height: 100vh;
+            padding-top: 40px; /* Espaço no topo */
+            padding-bottom: 40px; /* Espaço na base */
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 18px; /* Cantos mais arredondados */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 680px; /* Largura comum para conteúdo centralizado */
+            margin: 20px;
+        }
+        header h1 {
+            color: #006747; /* Verde Cemig para o título principal */
+            font-size: 28px; /* Tamanho de fonte para título */
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            color: #555; /* Cinza escuro para labels */
+            margin-bottom: 8px;
+            font-weight: 600; /* Labels um pouco mais fortes */
+        }
+        input[type="text"], textarea {
+            width: 100%; /* Ajustado para preencher */
+            padding: 12px 15px;
+            margin-bottom: 20px; /* Espaço após o input */
+            border: 1px solid #d2d2d7; /* Borda sutil */
+            border-radius: 10px; /* Cantos arredondados */
+            font-size: 16px;
+            box-sizing: border-box; /* Para padding não afetar a largura total */
+            background-color: #f8f9fa; /* Fundo muito claro para campos */
+            color: #333;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        input[type="text"]:focus, textarea:focus {
+            border-color: #006747; /* Verde Cemig na borda ao focar */
+            box-shadow: 0 0 0 0.2rem rgba(0, 103, 71, 0.25); /* Sombra sutil ao focar */
+            outline: none;
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical; /* Permite redimensionamento vertical */
+        }
+        button {
+            background-color: #006747; /* Verde Cemig */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px; /* Cantos arredondados */
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            display: block; /* Para ocupar a largura e centralizar */
+            width: auto; /* Ajusta à largura do conteúdo */
+            margin: 20px auto 0 auto; /* Centraliza o botão */
+            transition: background-color 0.2s ease;
+        }
+        button:hover {
+            background-color: #004c33; /* Verde Cemig um pouco mais escuro no hover */
+        }
+        .response-container {
+            margin-top: 30px;
+        }
+        .response-container h2 {
+            font-size: 18px;
+            color: #006747; /* Verde Cemig para o subtítulo da resposta */
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        #responseArea {
+            margin-top: 10px;
+            padding: 15px;
+            background-color: #f8f9fa; /* Fundo muito claro para a área de resposta */
+            border: 1px solid #e0e0e0; /* Borda sutil */
+            border-radius: 10px;
+            font-size: 15px;
+            line-height: 1.6;
+            min-height: 70px; /* Um pouco mais de altura mínima */
+            white-space: pre-wrap; /* Para preservar quebras de linha e espaços */
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>ChatBot COD</h1>
+        </header>
+        
+        <section class="input-section">
+            <label for="question">Sua Pergunta:</label>
+            <textarea id="question" name="question" rows="4"></textarea>
+        </section>
+        
+        <button onclick="askQuestion()">Enviar Pergunta</button>
+        
+        <section class="response-container">
+            <h2>Resposta do Sistema:</h2>
+            <div id="responseArea">
+                Aguardando sua pergunta...
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function askQuestion() {
+            const questionText = document.getElementById('question').value;
+            const responseArea = document.getElementById('responseArea');
+            
+            if (!questionText.trim()) {
+                responseArea.textContent = 'Por favor, digite uma pergunta.';
+                return;
+            }
+            
+            responseArea.textContent = 'Processando...';
+            
+            try {
+                const response = await fetch('/api/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ question: questionText }),
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || `Erro HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                responseArea.textContent = data.answer;
+                
+            } catch (error) {
+                console.error('Erro ao fazer a pergunta:', error);
+                responseArea.textContent = `Erro ao obter resposta: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
