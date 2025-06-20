@@ -15,7 +15,6 @@ Classifier: Development Status :: 4 - Beta
 Classifier: Intended Audience :: Developers
 Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
 Classifier: Topic :: Text Processing :: Linguistic
-Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3
 Classifier: Programming Language :: Python :: 3.8
 Classifier: Programming Language :: Python :: 3.9
@@ -28,26 +27,47 @@ Classifier: Natural Language :: Portuguese (Brazilian)
 Classifier: Natural Language :: English
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown
+Requires-Dist: pandas>=2.3.0
+Requires-Dist: flask-cors==4.0.0
+Requires-Dist: Flask-Limiter
+Requires-Dist: python-dotenv==1.0.0
+Requires-Dist: flask==3.0.0
+Requires-Dist: langchain<0.2.0,>=0.1.0
+Requires-Dist: langchain-community>=0.0.20
+Requires-Dist: langchain-google-genai>=0.1.0
+Requires-Dist: datasets>=2.0.0
+Requires-Dist: python-docx
+Requires-Dist: langchain-huggingface>=0.0.1
+Requires-Dist: sentence-transformers>=3.0.0
+Requires-Dist: openpyxl
+Requires-Dist: pdfplumber==0.10.0
+Requires-Dist: python-pptx==0.6.23
+Requires-Dist: google-generativeai
 Provides-Extra: dev
 Requires-Dist: pytest>=7.4.3; extra == "dev"
 Requires-Dist: pytest-flask>=1.3.0; extra == "dev"
 Requires-Dist: pytest-cov>=4.1.0; extra == "dev"
 Requires-Dist: black>=23.9.1; extra == "dev"
 Requires-Dist: flake8>=6.1.0; extra == "dev"
+Requires-Dist: datasets>=2.0.0; extra == "dev"
 Requires-Dist: mypy>=1.6.1; extra == "dev"
 Provides-Extra: gpu
 Requires-Dist: faiss-gpu>=1.7.4; extra == "gpu"
 Provides-Extra: docs
 Requires-Dist: sphinx>=7.2.6; extra == "docs"
 Requires-Dist: sphinx-rtd-theme>=1.3.0; extra == "docs"
+Provides-Extra: eval
+Requires-Dist: ragas>=0.1.7; extra == "eval"
+Requires-Dist: datasets>=2.0.0; extra == "eval"
 Provides-Extra: all
 Requires-Dist: pytest>=7.4.3; extra == "all"
 Requires-Dist: pytest-flask>=1.3.0; extra == "all"
 Requires-Dist: pytest-cov>=4.1.0; extra == "all"
 Requires-Dist: black>=23.9.1; extra == "all"
 Requires-Dist: flake8>=6.1.0; extra == "all"
+Requires-Dist: ragas>=0.1.7; extra == "all"
+Requires-Dist: datasets>=2.0.0; extra == "all"
 Requires-Dist: mypy>=1.6.1; extra == "all"
-Requires-Dist: faiss-gpu>=1.7.4; extra == "all"
 Requires-Dist: sphinx>=7.2.6; extra == "all"
 Requires-Dist: sphinx-rtd-theme>=1.3.0; extra == "all"
 Dynamic: author
@@ -61,7 +81,423 @@ Dynamic: license
 Dynamic: platform
 Dynamic: project-url
 Dynamic: provides-extra
+Dynamic: requires-dist
 Dynamic: requires-python
 Dynamic: summary
 
-Sistema RAG (Retrieval-Augmented Generation) com Google Gemini
+# 🚀 Sistema RAG com Google Gemini
+
+Sistema de **Retrieval-Augmented Generation (RAG)** integrado com **Google Gemini** para processamento inteligente de documentos e respostas baseadas em contexto.
+
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
+[![Flask](https://img.shields.io/badge/Flask-3.0+-green.svg)](https://flask.palletsprojects.com)
+[![Google Gemini](https://img.shields.io/badge/Google-Gemini-orange.svg)](https://ai.google.dev)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+## 📋 Índice
+
+- [Sobre o Projeto](#-sobre-o-projeto)
+- [Características](#-características)
+- [Tecnologias](#-tecnologias)
+- [Instalação](#-instalação)
+- [Configuração](#-configuração)
+- [Uso](#-uso)
+- [API Endpoints](#-api-endpoints)
+- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Contribuição](#-contribuição)
+- [Licença](#-licença)
+- [Suporte](#-suporte)
+
+## 🎯 Sobre o Projeto
+
+Este sistema RAG permite que você:
+
+- 📄 **Processe múltiplos tipos de documentos** (PDF, TXT, PPTX, CSV)
+- 🔍 **Faça perguntas inteligentes** sobre o conteúdo dos documentos
+- 🤖 **Obtenha respostas contextualizadas** usando Google Gemini
+- 🌐 **Acesse via API REST** para integração com outras aplicações
+- ⚡ **Busque informações rapidamente** usando embeddings e FAISS
+
+### Caso de Uso Principal
+Desenvolvido inicialmente para a **CEMIG**, este sistema permite que funcionários façam perguntas sobre documentos corporativos (políticas, regulamentos, relatórios) e recebam respostas precisas e contextualizadas.
+
+## ✨ Características
+
+### 🔧 Funcionalidades Técnicas
+- **Processamento Multi-formato**: PDF, TXT, PPTX, CSV
+- **Embeddings Multilíngues**: Suporte a português e inglês
+- **Busca Vetorial**: FAISS para recuperação eficiente
+- **API RESTful**: Endpoints Flask para integração
+- **Chunking Inteligente**: Divisão otimizada de documentos
+- **Citação de Fontes**: Rastreamento automático das origens
+
+### 🎨 Interface e Usabilidade
+- Interface web simples e intuitiva
+- Respostas com citação de fontes
+- Status em tempo real do sistema
+- Logs detalhados para debugging
+
+### ⚙️ Configurabilidade
+- Múltiplos modelos de embedding
+- Parâmetros ajustáveis de chunking
+- Configuração via variáveis de ambiente
+- Suporte a cache para otimização
+
+## 🛠 Tecnologias
+
+### Core
+- **Python 3.8+**
+- **Flask** - Framework web
+- **Google Gemini** - Modelo de linguagem
+- **Sentence Transformers** - Embeddings
+- **FAISS** - Busca vetorial
+
+### Processamento de Documentos
+- **pdfplumber** - Extração de texto de PDFs
+- **python-pptx** - Processamento de PowerPoint
+- **pandas** - Manipulação de dados CSV
+
+### Infraestrutura
+- **Flask-CORS** - Suporte a CORS
+- **python-dotenv** - Gerenciamento de configurações
+- **numpy** - Operações numéricas
+
+## 📦 Instalação
+
+### Pré-requisitos
+- Python 3.8 ou superior
+- Chave de API do Google Gemini
+
+### Instalação Rápida
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/cemig/rag-gemini-system.git
+cd rag-gemini-system
+
+# 2. Crie um ambiente virtual
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# ou
+venv\Scripts\activate     # Windows
+
+# 3. Instale as dependências
+pip install -r requirements.txt
+
+# 4. Instale o pacote
+pip install -e .
+```
+
+### Instalação com Extras
+
+```bash
+# Desenvolvimento completo
+pip install -e ".[dev]"
+
+# Suporte a GPU
+pip install -e ".[gpu]"
+
+# Todas as funcionalidades
+pip install -e ".[all]"
+```
+
+## ⚙️ Configuração
+
+### 1. Arquivo de Ambiente
+
+Copie o arquivo `.env` e configure suas variáveis:
+
+```bash
+cp .env.example .env
+```
+
+### 2. Configurações Essenciais
+
+Edite o arquivo `.env`:
+
+```env
+# Obtenha sua chave em: https://makersuite.google.com/app/apikey
+GOOGLE_API_KEY=sua_chave_aqui
+
+# Configurações do servidor
+FLASK_HOST=0.0.0.0
+FLASK_PORT=5000
+FLASK_DEBUG=True
+
+# Configurações do RAG
+CHUNK_SIZE=300
+CHUNK_OVERLAP=50
+MAX_CONTEXT_DOCS=5
+```
+
+### 3. Estrutura de Diretórios
+
+```
+projeto/
+├── dados_rag/          # Seus documentos aqui
+│   ├── documento1.pdf
+│   ├── documento2.txt
+│   └── planilha.csv
+├── .env               # Configurações
+└── rag_gemini_backend.py
+```
+
+## 🚀 Uso
+
+### Iniciar o Servidor
+
+```bash
+python rag_gemini_backend.py
+```
+
+O sistema estará disponível em: `http://localhost:5000`
+
+### Interface Web
+
+1. **Acesse** `http://localhost:5000`
+2. **Carregue os documentos** clicando em "Carregar Documentos"
+3. **Faça suas perguntas** na caixa de texto
+4. **Receba respostas** com fontes citadas
+
+### Exemplo de Uso
+
+```python
+import requests
+
+# Carregar documentos
+response = requests.post('http://localhost:5000/api/load_documents')
+print(response.json())
+
+# Fazer uma pergunta
+query = {
+    "question": "Qual é a política de energia renovável da CEMIG?"
+}
+response = requests.post('http://localhost:5000/api/query', json=query)
+print(response.json())
+```
+
+## 🔌 API Endpoints
+
+### POST `/api/load_documents`
+Carrega e processa documentos do diretório configurado.
+
+**Resposta:**
+```json
+{
+    "status": "success",
+    "message": "5 documentos carregados com sucesso.",
+    "chunks_created": 42
+}
+```
+
+### POST `/api/query`
+Processa uma pergunta e retorna resposta contextualizada.
+
+**Requisição:**
+```json
+{
+    "question": "Sua pergunta aqui"
+}
+```
+
+**Resposta:**
+```json
+{
+    "status": "success",
+    "question": "Sua pergunta aqui",
+    "answer": "Resposta detalhada...",
+    "sources": ["documento1.pdf", "documento2.txt"],
+    "context": "Contexto utilizado...",
+    "timestamp": "2024-01-15T10:30:00"
+}
+```
+
+### GET `/api/status`
+Verifica o status do sistema.
+
+**Resposta:**
+```json
+{
+    "status": "active",
+    "documents_loaded": 5,
+    "chunks_created": 42,
+    "index_ready": true
+}
+```
+
+## 📁 Estrutura do Projeto
+
+```
+rag-gemini-system/
+├── 📄 README.md                 # Este arquivo
+├── 📄 requirements.txt          # Dependências Python
+├── 📄 setup.py                  # Configuração do pacote
+├── 📄 .env                      # Variáveis de ambiente
+├── 🐍 rag_gemini_backend.py     # Código principal
+├── 📁 dados_rag/                # Documentos para processamento
+├── 📁 templates/                # Templates HTML
+├── 📁 static/                   # Arquivos estáticos
+└── 📁 tests/                    # Testes automatizados
+```
+
+## 🤝 Contribuição
+
+Contribuições são bem-vindas! Siga estes passos:
+
+### 1. Preparação
+```bash
+# Fork o projeto
+git clone https://github.com/seu-usuario/rag-gemini-system.git
+cd rag-gemini-system
+
+# Instale dependências de desenvolvimento
+pip install -e ".[dev]"
+```
+
+### 2. Desenvolvimento
+```bash
+# Crie uma branch para sua feature
+git checkout -b feature/nova-funcionalidade
+
+# Faça suas alterações
+# Adicione testes se necessário
+
+# Execute os testes
+python -m pytest
+
+# Execute o linting
+black .
+flake8 .
+```
+
+### 3. Submissão
+```bash
+# Commit suas alterações
+git add .
+git commit -m "feat: adiciona nova funcionalidade"
+
+# Push para seu fork
+git push origin feature/nova-funcionalidade
+
+# Abra um Pull Request
+```
+
+### Diretrizes
+- ✅ Mantenha o código limpo e documentado
+- ✅ Adicione testes para novas funcionalidades
+- ✅ Siga o padrão de commits convencionais
+- ✅ Atualize a documentação quando necessário
+
+## 🐛 Problemas Comuns
+
+### Erro de API Key
+```
+⚠️ Configure sua chave de API do Google Gemini no arquivo .env
+```
+**Solução:** Configure `GOOGLE_API_KEY` no arquivo `.env`
+
+### Erro de Dependências
+```
+ModuleNotFoundError: No module named 'sentence_transformers'
+```
+**Solução:** Execute `pip install -r requirements.txt`
+
+### Erro de Documentos
+```
+Sistema não inicializado. Carregue os documentos primeiro.
+```
+**Solução:** Clique em "Carregar Documentos" na interface ou chame `/api/load_documents`
+
+## 📊 Performance
+
+### Benchmarks Típicos
+- **Processamento**: ~10-50 documentos/minuto
+- **Busca**: <100ms por query
+- **Embedding**: ~1-5 segundos por documento
+
+### Otimizações
+- Use `faiss-gpu` para melhor performance
+- Ajuste `CHUNK_SIZE` conforme seu caso de uso
+- Configure cache para documentos frequentes
+
+## 🔒 Segurança
+
+- 🔐 API Keys seguras via variáveis de ambiente
+- 🛡️ Validação de entrada em todos endpoints
+- 📝 Logs detalhados para auditoria
+- 🚫 Não armazena dados sensíveis em logs
+
+## 📈 Roadmap
+
+### Versão 1.1
+- [ ] Interface web melhorada
+- [ ] Suporte a mais formatos (DOCX, XLSX)
+- [ ] Cache inteligente de embeddings
+- [ ] Métricas de performance
+
+### Versão 1.2
+- [ ] Autenticação de usuários
+- [ ] Upload de documentos via web
+- [ ] Histórico de conversas
+- [ ] API de administração
+
+### Versão 2.0
+- [ ] Suporte a múltiplos LLMs
+- [ ] Interface conversacional
+- [ ] Integração com bancos vetoriais
+- [ ] Dashboard analítico
+
+## 📝 Licença
+
+Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+```
+MIT License
+
+Copyright (c) 2024 CEMIG
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+```
+
+## 💬 Suporte
+
+### Documentação
+- 📖 [Wiki do Projeto](https://github.com/cemig/rag-gemini-system/wiki)
+- 🔗 [Google Gemini Docs](https://ai.google.dev/docs)
+- 📚 [Sentence Transformers](https://www.sbert.net/)
+
+### Comunidade
+- 🐛 [Issues](https://github.com/cemig/rag-gemini-system/issues) - Para bugs e sugestões
+- 💬 [Discussions](https://github.com/cemig/rag-gemini-system/discussions) - Para dúvidas gerais
+- 📧 Email: dev@cemig.com.br
+
+### FAQ
+
+**P: Posso usar outros modelos além do Gemini?**
+R: Atualmente suportamos apenas Gemini, mas estamos trabalhando em suporte multi-LLM.
+
+**P: O sistema funciona offline?**
+R: Não, pois depende da API do Google Gemini. O processamento de documentos é local.
+
+**P: Qual o limite de documentos?**
+R: Não há limite rígido, mas a performance pode ser afetada com muitos documentos.
+
+---
+
+<div align="center">
+
+**⭐ Se este projeto foi útil, considere dar uma estrela!** ⭐
+
+Desenvolvido com ❤️ pela equipe **CEMIG**
+
+[🏠 Página Inicial](https://github.com/cemig/rag-gemini-system) • [📖 Documentação](https://github.com/cemig/rag-gemini-system/wiki) • [🐛 Reportar Bug](https://github.com/cemig/rag-gemini-system/issues)
+
+</div>

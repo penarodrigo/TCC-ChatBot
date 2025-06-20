@@ -16,7 +16,7 @@ if sys.version_info < (3, 8):
 # Ler o arquivo README
 def read_readme():
     """Lê o arquivo README para a descrição longa"""
-    readme_path = os.path.join(os.path.dirname(__file__), 'README.md')
+    readme_path = os.path.join(os.path.dirname(__file__), 'readme_md.md') # Corrigido para o nome do arquivo fornecido
     if os.path.exists(readme_path):
         with open(readme_path, 'r', encoding='utf-8') as f:
             return f.read()
@@ -29,7 +29,21 @@ def read_requirements():
     if os.path.exists(requirements_path):
         with open(requirements_path, 'r', encoding='utf-8') as f:
             # Filtrar comentários e linhas vazias
-            return [line.strip() for line in f if line.strip() and not line.startswith('#')]
+            # Lê as dependências base do requirements.txt
+            base_requirements = [
+                line.strip() for line in f 
+                if line.strip() and 
+                not line.startswith('#') and
+                not line.startswith('langchain') # Evita duplicar se já estiverem no requirements.txt
+            ]
+            # Adiciona dependências LangChain explicitamente
+            langchain_deps = [
+                'langchain>=0.1.0,<0.2.0',
+                'langchain-google-genai>=0.1.0',
+                'langchain-community>=0.0.20', # Inclui wrappers para FAISS, etc.
+                'langchain-huggingface>=0.0.1', # Para HuggingFaceEmbeddings
+            ]
+            return list(set(base_requirements + langchain_deps)) # Usa set para evitar duplicatas e converte para lista
     return []
 
 # Configurações do setup
@@ -59,7 +73,7 @@ setup(
         "Intended Audience :: Developers",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
         "Topic :: Text Processing :: Linguistic",
-        "License :: OSI Approved :: MIT License",
+        # "License :: OSI Approved :: MIT License", # Deprecated
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
@@ -74,7 +88,8 @@ setup(
     
     # Configurações de pacotes
     packages=find_packages(),
-    include_package_data=True,
+    py_modules=["rag_gemini_improved"], # Adicionado para o módulo principal
+    include_package_data=True, # Deve aparecer apenas uma vez
     
     # Versão mínima do Python
     python_requires='>=3.8',
@@ -90,6 +105,7 @@ setup(
             'pytest-cov>=4.1.0',
             'black>=23.9.1',
             'flake8>=6.1.0',
+            'datasets>=2.0.0', # Adicionado para RAGAS/avaliação
             'mypy>=1.6.1',
         ],
         'gpu': [
@@ -99,26 +115,33 @@ setup(
             'sphinx>=7.2.6',
             'sphinx-rtd-theme>=1.3.0',
         ],
+        'eval': [ # Adicionando uma seção específica para avaliação
+            'ragas>=0.1.7', # Supondo que ragas já esteja no requirements.txt ou será adicionado
+            'datasets>=2.0.0',
+        ],
         'all': [
             'pytest>=7.4.3',
             'pytest-flask>=1.3.0',
             'pytest-cov>=4.1.0',
             'black>=23.9.1',
             'flake8>=6.1.0',
-            'mypy>=1.6.1',
-            'faiss-gpu>=1.7.4',
+            'ragas>=0.1.7', # Adicionando ragas aqui também se for parte do 'all'
+            'datasets>=2.0.0', # Adicionando datasets aqui também
+            'mypy>=1.6.1', # Mantém mypy
+            # 'faiss-gpu>=1.7.4', # Removido de 'all' para evitar problemas de instalação no Windows via pip
             'sphinx>=7.2.6',
             'sphinx-rtd-theme>=1.3.0',
         ]
     },
     
     # Scripts de linha de comando
-    entry_points={
-        'console_scripts': [
-            'rag-gemini=rag_gemini_improved:main',
-            'rag-server=rag_gemini_improved:run_server',
-        ],
-    },
+      entry_points={
+          'console_scripts': [
+              'rag-gemini=rag_gemini_improved:main',  # Para operações de linha de comando
+              'rag-server=rag_gemini_improved:run_server', # Para iniciar o servidor web
+          ],
+      },
+  
     
     # Arquivos de dados
     package_data={
@@ -146,17 +169,17 @@ setup(
     ],
     
     # Licença
-    license='MIT',
+    license='MIT', # Usar o identificador SPDX
+    # license_files=('LICENSE.txt',), # Se você tiver um arquivo LICENSE.txt
     
     # Configurações do zip
     zip_safe=False,
     
     # Plataformas suportadas
     platforms=['any'],
-    
 )
 
-# Funções auxiliares para desenvolvimento
+# Funções auxiliares para desenvolvimento (mantidas fora da chamada setup())
 def run_tests():
     """Executa os testes"""
     import pytest
@@ -191,9 +214,10 @@ def create_sample_config():
     import shutil
     
     # Criar .env de exemplo se não existir
-    if not os.path.exists('.env') and os.path.exists('.env.example'):
-        shutil.copy('.env.example', '.env')
-        print(" Arquivo .env criado a partir do .env.example")
+    # Padronizando para .env, assumindo que .env.example existe ou ser&#225; criado manualmente.
+    # if not os.path.exists('.env') and os.path.exists('.env.example'):
+    #     shutil.copy('.env.example', '.env')
+    #     print(" Arquivo .env criado a partir do .env.example. Certifique-se de preench&#234;-lo.")
     
     # Criar diretório de dados
     data_dir = 'dados_rag'
