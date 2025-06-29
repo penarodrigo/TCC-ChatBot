@@ -1,0 +1,810 @@
+2025-06-26 00:40:14,648 - nucleo_rag - INFO - nucleo_rag:493 - Inicializando componentes globais...
+2025-06-26 00:40:14,649 - nucleo_rag - INFO - nucleo_rag:102 - ConfigManager inicializado e configurações validadas.
+2025-06-26 00:40:14,650 - nucleo_rag - INFO - nucleo_rag:495 - ConfigManager carregado e validado.
+2025-06-26 00:40:14,651 - nucleo_rag - INFO - nucleo_rag:498 - Google Generative AI configurado.
+2025-06-26 00:40:14,651 - nucleo_rag - INFO - nucleo_rag:121 - CacheManager inicializado. Diretório de cache: .cache_embeddings
+2025-06-26 00:40:14,653 - nucleo_rag.RAGSystem - INFO - nucleo_rag:277 - Cache de embeddings habilitado. Diretório: .cache_embeddings, TTL: 86400s
+2025-06-26 00:40:14,654 - nucleo_rag.RAGSystem - INFO - nucleo_rag:282 - Carregando modelo de embedding: intfloat/multilingual-e5-large
+2025-06-26 00:40:14,662 - sentence_transformers.SentenceTransformer - INFO - SentenceTransformer:211 - Use pytorch device_name: cpu
+2025-06-26 00:40:14,663 - sentence_transformers.SentenceTransformer - INFO - SentenceTransformer:219 - Load pretrained SentenceTransformer: intfloat/multilingual-e5-large
+2025-06-26 00:40:21,923 - nucleo_rag.RAGSystem - INFO - nucleo_rag:284 - Modelo de embedding carregado.
+2025-06-26 00:40:21,925 - nucleo_rag.RAGSystem - INFO - nucleo_rag:288 - Configurando modelo Gemini: gemini-basic
+2025-06-26 00:40:21,925 - nucleo_rag.RAGSystem - INFO - nucleo_rag:290 - Modelo Gemini configurado.
+2025-06-26 00:40:21,926 - nucleo_rag.RAGSystem - INFO - nucleo_rag:298 - Inicializando vector store...
+2025-06-26 00:40:21,926 - nucleo_rag.RAGSystem - INFO - nucleo_rag:308 - Índice FAISS (IndexFlatL2) criado (dim 1024).
+2025-06-26 00:40:21,928 - nucleo_rag.RAGSystem - INFO - nucleo_rag:329 - Processando documento alvo: dados_rag\IDDC.pdf
+2025-06-26 00:40:21,928 - nucleo_rag.RAGSystem - INFO - nucleo_rag:298 - Inicializando vector store...
+2025-06-26 00:40:21,929 - nucleo_rag.RAGSystem - INFO - nucleo_rag:308 - Índice FAISS (IndexFlatL2) criado (dim 1024).
+2025-06-26 00:40:21,930 - nucleo_rag - INFO - nucleo_rag:252 - Extraindo texto de: dados_rag\IDDC.pdf (ext: .pdf)
+2025-06-26 00:40:28,772 - nucleo_rag.RAGSystem - INFO - nucleo_rag:340 - Processando 328 chunks de 'IDDC.pdf'. Verificando cache...
+2025-06-26 00:40:29,242 - nucleo_rag.RAGSystem - INFO - nucleo_rag:387 - Adicionados 328 vetores de 'IDDC.pdf' ao FAISS. Total no índice: 328.
+2025-06-26 00:40:29,243 - nucleo_rag - INFO - nucleo_rag:507 - Instância RAGSystem criada.
+2025-06-26 00:40:29,244 - nucleo_rag - INFO - nucleo_rag:509 - Componentes RAG inicializados, foco em 'IDDC.pdf'.
+2025-06-26 00:40:29,247 - nucleo_rag - INFO - nucleo_rag:581 - 🚀 Iniciando Flask em http://0.0.0.0:5000 (Debug: False)
+2025-06-26 00:40:29,280 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.10.147.81:5000
+2025-06-26 00:40:29,282 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-06-26 00:41:22,501 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 00:41:22] "GET /ui HTTP/1.1" 200 -
+2025-06-26 00:41:26,934 - nucleo_rag - INFO - nucleo_rag:538 - API /api/ask: Pergunta: 'teste...'
+2025-06-26 00:41:26,934 - nucleo_rag.RAGSystem - INFO - nucleo_rag:431 - Gerando embedding para pergunta: 'teste...'
+2025-06-26 00:41:35,631 - nucleo_rag.RAGSystem - INFO - nucleo_rag:435 - Buscando contexto de 'IDDC.pdf'...
+2025-06-26 00:41:35,840 - nucleo_rag.RAGSystem - INFO - nucleo_rag:455 - Enviando prompt para Gemini...
+2025-06-26 00:41:37,745 - nucleo_rag - ERROR - nucleo_rag:546 - API /api/ask erro: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "C:\Users\c057545\OneDrive - CEMIG\TCC-ChatBot\nucleo_rag.py", line 543, in rota_ask_question_api
+    logger.info(f"API /api/ask: Resposta: '{resposta[:100]}...'")
+                                            ~~~~~~~~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+2025-06-26 00:41:37,780 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 00:41:37] "[35m[1mPOST /api/ask HTTP/1.1[0m" 500 -
+2025-06-26 00:51:34,934 - nucleo_rag - INFO - nucleo_rag:493 - Inicializando componentes globais...
+2025-06-26 00:51:34,935 - nucleo_rag - INFO - nucleo_rag:102 - ConfigManager inicializado e configurações validadas.
+2025-06-26 00:51:34,936 - nucleo_rag - INFO - nucleo_rag:495 - ConfigManager carregado e validado.
+2025-06-26 00:51:34,936 - nucleo_rag - INFO - nucleo_rag:498 - Google Generative AI configurado.
+2025-06-26 00:51:34,936 - nucleo_rag - INFO - nucleo_rag:121 - CacheManager inicializado. Diretório de cache: .cache_embeddings
+2025-06-26 00:51:34,936 - nucleo_rag.RAGSystem - INFO - nucleo_rag:277 - Cache de embeddings habilitado. Diretório: .cache_embeddings, TTL: 86400s
+2025-06-26 00:51:34,937 - nucleo_rag.RAGSystem - INFO - nucleo_rag:282 - Carregando modelo de embedding: intfloat/multilingual-e5-large
+2025-06-26 00:51:34,940 - sentence_transformers.SentenceTransformer - INFO - SentenceTransformer:211 - Use pytorch device_name: cpu
+2025-06-26 00:51:34,940 - sentence_transformers.SentenceTransformer - INFO - SentenceTransformer:219 - Load pretrained SentenceTransformer: intfloat/multilingual-e5-large
+2025-06-26 00:51:40,435 - nucleo_rag.RAGSystem - INFO - nucleo_rag:284 - Modelo de embedding carregado.
+2025-06-26 00:51:40,435 - nucleo_rag.RAGSystem - INFO - nucleo_rag:288 - Configurando modelo Gemini: gemini-basic
+2025-06-26 00:51:40,436 - nucleo_rag.RAGSystem - INFO - nucleo_rag:290 - Modelo Gemini configurado.
+2025-06-26 00:51:40,436 - nucleo_rag.RAGSystem - INFO - nucleo_rag:298 - Inicializando vector store...
+2025-06-26 00:51:40,436 - nucleo_rag.RAGSystem - INFO - nucleo_rag:308 - Índice FAISS (IndexFlatL2) criado (dim 1024).
+2025-06-26 00:51:40,437 - nucleo_rag.RAGSystem - INFO - nucleo_rag:329 - Processando documento alvo: dados_rag\IDDC.pdf
+2025-06-26 00:51:40,437 - nucleo_rag.RAGSystem - INFO - nucleo_rag:298 - Inicializando vector store...
+2025-06-26 00:51:40,437 - nucleo_rag.RAGSystem - INFO - nucleo_rag:308 - Índice FAISS (IndexFlatL2) criado (dim 1024).
+2025-06-26 00:51:40,437 - nucleo_rag - INFO - nucleo_rag:252 - Extraindo texto de: dados_rag\IDDC.pdf (ext: .pdf)
+2025-06-26 00:51:44,013 - nucleo_rag.RAGSystem - INFO - nucleo_rag:340 - Processando 328 chunks de 'IDDC.pdf'. Verificando cache...
+2025-06-26 00:51:46,731 - nucleo_rag.RAGSystem - INFO - nucleo_rag:387 - Adicionados 328 vetores de 'IDDC.pdf' ao FAISS. Total no índice: 328.
+2025-06-26 00:51:46,732 - nucleo_rag - INFO - nucleo_rag:507 - Instância RAGSystem criada.
+2025-06-26 00:51:46,733 - nucleo_rag - INFO - nucleo_rag:509 - Componentes RAG inicializados, foco em 'IDDC.pdf'.
+2025-06-26 00:51:46,735 - nucleo_rag - INFO - nucleo_rag:581 - 🚀 Iniciando Flask em http://0.0.0.0:5000 (Debug: False)
+2025-06-26 00:51:46,788 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.10.147.81:5000
+2025-06-26 00:51:46,789 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-06-26 00:51:55,910 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 00:51:55] "GET /ui HTTP/1.1" 200 -
+2025-06-26 00:51:56,054 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 00:51:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-26 00:52:01,031 - nucleo_rag - INFO - nucleo_rag:538 - API /api/ask: Pergunta: 'teste...'
+2025-06-26 00:52:01,032 - nucleo_rag.RAGSystem - INFO - nucleo_rag:431 - Gerando embedding para pergunta: 'teste...'
+2025-06-26 00:52:05,187 - nucleo_rag.RAGSystem - INFO - nucleo_rag:435 - Buscando contexto de 'IDDC.pdf'...
+2025-06-26 00:52:05,363 - nucleo_rag.RAGSystem - INFO - nucleo_rag:455 - Enviando prompt para Gemini...
+2025-06-26 00:52:06,541 - nucleo_rag - ERROR - nucleo_rag:546 - API /api/ask erro: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "C:\Users\c057545\OneDrive - CEMIG\TCC-ChatBot\nucleo_rag.py", line 543, in rota_ask_question_api
+    logger.info(f"API /api/ask: Resposta: '{resposta[:100]}...'")
+                                            ~~~~~~~~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+2025-06-26 00:52:06,549 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 00:52:06] "[35m[1mPOST /api/ask HTTP/1.1[0m" 500 -
+2025-06-26 01:04:35,662 - nucleo_rag - INFO - nucleo_rag:498 - Inicializando componentes globais...
+2025-06-26 01:04:35,664 - nucleo_rag - INFO - nucleo_rag:102 - ConfigManager inicializado e configurações validadas.
+2025-06-26 01:04:35,664 - nucleo_rag - INFO - nucleo_rag:500 - ConfigManager carregado e validado.
+2025-06-26 01:04:35,664 - nucleo_rag - INFO - nucleo_rag:503 - Google Generative AI configurado.
+2025-06-26 01:04:35,665 - nucleo_rag - INFO - nucleo_rag:121 - CacheManager inicializado. Diretório de cache: .cache_embeddings
+2025-06-26 01:04:35,665 - nucleo_rag.RAGSystem - INFO - nucleo_rag:277 - Cache de embeddings habilitado. Diretório: .cache_embeddings, TTL: 86400s
+2025-06-26 01:04:35,666 - nucleo_rag.RAGSystem - INFO - nucleo_rag:282 - Carregando modelo de embedding: intfloat/multilingual-e5-large
+2025-06-26 01:04:35,671 - sentence_transformers.SentenceTransformer - INFO - SentenceTransformer:211 - Use pytorch device_name: cpu
+2025-06-26 01:04:35,672 - sentence_transformers.SentenceTransformer - INFO - SentenceTransformer:219 - Load pretrained SentenceTransformer: intfloat/multilingual-e5-large
+2025-06-26 01:04:42,125 - nucleo_rag.RAGSystem - INFO - nucleo_rag:284 - Modelo de embedding carregado.
+2025-06-26 01:04:42,126 - nucleo_rag.RAGSystem - INFO - nucleo_rag:288 - Configurando modelo Gemini: gemini-basic
+2025-06-26 01:04:42,126 - nucleo_rag.RAGSystem - INFO - nucleo_rag:290 - Modelo Gemini configurado.
+2025-06-26 01:04:42,127 - nucleo_rag.RAGSystem - INFO - nucleo_rag:298 - Inicializando vector store...
+2025-06-26 01:04:42,129 - nucleo_rag.RAGSystem - INFO - nucleo_rag:308 - Índice FAISS (IndexFlatL2) criado (dim 1024).
+2025-06-26 01:04:42,130 - nucleo_rag.RAGSystem - INFO - nucleo_rag:329 - Processando documento alvo: dados_rag\IDDC.pdf
+2025-06-26 01:04:42,130 - nucleo_rag.RAGSystem - INFO - nucleo_rag:298 - Inicializando vector store...
+2025-06-26 01:04:42,131 - nucleo_rag.RAGSystem - INFO - nucleo_rag:308 - Índice FAISS (IndexFlatL2) criado (dim 1024).
+2025-06-26 01:04:42,132 - nucleo_rag - INFO - nucleo_rag:252 - Extraindo texto de: dados_rag\IDDC.pdf (ext: .pdf)
+2025-06-26 01:04:46,289 - nucleo_rag.RAGSystem - INFO - nucleo_rag:340 - Processando 328 chunks de 'IDDC.pdf'. Verificando cache...
+2025-06-26 01:04:46,614 - nucleo_rag.RAGSystem - INFO - nucleo_rag:387 - Adicionados 328 vetores de 'IDDC.pdf' ao FAISS. Total no índice: 328.
+2025-06-26 01:04:46,615 - nucleo_rag - INFO - nucleo_rag:512 - Instância RAGSystem criada.
+2025-06-26 01:04:46,615 - nucleo_rag - INFO - nucleo_rag:514 - Componentes RAG inicializados, foco em 'IDDC.pdf'.
+2025-06-26 01:04:46,616 - nucleo_rag - INFO - nucleo_rag:589 - 🚀 Iniciando Flask em http://0.0.0.0:5000 (Debug: False)
+2025-06-26 01:04:46,639 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.10.147.81:5000
+2025-06-26 01:04:46,642 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-06-26 01:05:37,730 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 01:05:37] "GET /ui HTTP/1.1" 200 -
+2025-06-26 01:05:37,769 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 01:05:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-26 01:05:43,691 - nucleo_rag - INFO - nucleo_rag:543 - API /api/ask: Pergunta: 'iddc...'
+2025-06-26 01:05:43,692 - nucleo_rag.RAGSystem - INFO - nucleo_rag:431 - Gerando embedding para pergunta: 'iddc...'
+2025-06-26 01:05:47,993 - nucleo_rag.RAGSystem - INFO - nucleo_rag:437 - Buscando contexto de 'IDDC.pdf'...
+2025-06-26 01:05:48,132 - nucleo_rag.RAGSystem - INFO - nucleo_rag:459 - Enviando prompt para Gemini...
+2025-06-26 01:05:49,337 - nucleo_rag - ERROR - nucleo_rag:549 - A resposta gerada é None. Verifique o modelo ou a chave de API.
+2025-06-26 01:05:49,338 - nucleo_rag - INFO - nucleo_rag:551 - API /api/ask: Resposta: 'Erro: Não foi possível gerar uma resposta....'
+2025-06-26 01:05:49,342 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 01:05:49] "POST /api/ask HTTP/1.1" 200 -
+2025-06-26 07:53:34,183 - nucleo_rag - INFO - nucleo_rag:498 - Inicializando componentes globais...
+2025-06-26 07:53:34,185 - nucleo_rag - INFO - nucleo_rag:102 - ConfigManager inicializado e configurações validadas.
+2025-06-26 07:53:34,185 - nucleo_rag - INFO - nucleo_rag:500 - ConfigManager carregado e validado.
+2025-06-26 07:53:34,186 - nucleo_rag - INFO - nucleo_rag:503 - Google Generative AI configurado.
+2025-06-26 07:53:34,186 - nucleo_rag - INFO - nucleo_rag:121 - CacheManager inicializado. Diretório de cache: .cache_embeddings
+2025-06-26 07:53:34,187 - nucleo_rag.RAGSystem - INFO - nucleo_rag:277 - Cache de embeddings habilitado. Diretório: .cache_embeddings, TTL: 86400s
+2025-06-26 07:53:34,187 - nucleo_rag.RAGSystem - INFO - nucleo_rag:282 - Carregando modelo de embedding: intfloat/multilingual-e5-large
+2025-06-26 07:53:34,192 - sentence_transformers.SentenceTransformer - INFO - SentenceTransformer:211 - Use pytorch device_name: cpu
+2025-06-26 07:53:34,192 - sentence_transformers.SentenceTransformer - INFO - SentenceTransformer:219 - Load pretrained SentenceTransformer: intfloat/multilingual-e5-large
+2025-06-26 07:53:39,259 - nucleo_rag.RAGSystem - INFO - nucleo_rag:284 - Modelo de embedding carregado.
+2025-06-26 07:53:39,260 - nucleo_rag.RAGSystem - INFO - nucleo_rag:288 - Configurando modelo Gemini: gemini-basic
+2025-06-26 07:53:39,261 - nucleo_rag.RAGSystem - INFO - nucleo_rag:290 - Modelo Gemini configurado.
+2025-06-26 07:53:39,261 - nucleo_rag.RAGSystem - INFO - nucleo_rag:298 - Inicializando vector store...
+2025-06-26 07:53:39,261 - nucleo_rag.RAGSystem - INFO - nucleo_rag:308 - Índice FAISS (IndexFlatL2) criado (dim 1024).
+2025-06-26 07:53:39,262 - nucleo_rag.RAGSystem - INFO - nucleo_rag:329 - Processando documento alvo: dados_rag\IDDC.pdf
+2025-06-26 07:53:39,262 - nucleo_rag.RAGSystem - INFO - nucleo_rag:298 - Inicializando vector store...
+2025-06-26 07:53:39,262 - nucleo_rag.RAGSystem - INFO - nucleo_rag:308 - Índice FAISS (IndexFlatL2) criado (dim 1024).
+2025-06-26 07:53:39,263 - nucleo_rag - INFO - nucleo_rag:252 - Extraindo texto de: dados_rag\IDDC.pdf (ext: .pdf)
+2025-06-26 07:53:42,951 - nucleo_rag.RAGSystem - INFO - nucleo_rag:340 - Processando 328 chunks de 'IDDC.pdf'. Verificando cache...
+2025-06-26 07:53:43,297 - nucleo_rag.RAGSystem - INFO - nucleo_rag:387 - Adicionados 328 vetores de 'IDDC.pdf' ao FAISS. Total no índice: 328.
+2025-06-26 07:53:43,298 - nucleo_rag - INFO - nucleo_rag:512 - Instância RAGSystem criada.
+2025-06-26 07:53:43,298 - nucleo_rag - INFO - nucleo_rag:514 - Componentes RAG inicializados, foco em 'IDDC.pdf'.
+2025-06-26 07:53:43,300 - nucleo_rag - INFO - nucleo_rag:589 - 🚀 Iniciando Flask em http://0.0.0.0:5000 (Debug: False)
+2025-06-26 07:53:43,322 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.228.106:5000
+2025-06-26 07:53:43,323 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-06-26 07:54:30,318 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 07:54:30] "GET /ui HTTP/1.1" 200 -
+2025-06-26 07:54:30,365 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 07:54:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-26 07:54:42,252 - nucleo_rag - INFO - nucleo_rag:543 - API /api/ask: Pergunta: 'o que é iddc?...'
+2025-06-26 07:54:42,253 - nucleo_rag.RAGSystem - INFO - nucleo_rag:431 - Gerando embedding para pergunta: 'o que é iddc?...'
+2025-06-26 07:54:47,898 - nucleo_rag.RAGSystem - INFO - nucleo_rag:437 - Buscando contexto de 'IDDC.pdf'...
+2025-06-26 07:54:48,084 - nucleo_rag.RAGSystem - INFO - nucleo_rag:459 - Enviando prompt para Gemini...
+2025-06-26 07:54:49,378 - nucleo_rag - ERROR - nucleo_rag:549 - A resposta gerada é None. Verifique o modelo ou a chave de API.
+2025-06-26 07:54:49,378 - nucleo_rag - INFO - nucleo_rag:551 - API /api/ask: Resposta: 'Erro: Não foi possível gerar uma resposta....'
+2025-06-26 07:54:49,387 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 07:54:49] "POST /api/ask HTTP/1.1" 200 -
+2025-06-26 10:20:59,612 - nucleo_rag - INFO - nucleo_rag:498 - Inicializando componentes globais...
+2025-06-26 10:20:59,614 - nucleo_rag - INFO - nucleo_rag:102 - ConfigManager inicializado e configurações validadas.
+2025-06-26 10:20:59,614 - nucleo_rag - INFO - nucleo_rag:500 - ConfigManager carregado e validado.
+2025-06-26 10:20:59,615 - nucleo_rag - INFO - nucleo_rag:503 - Google Generative AI configurado.
+2025-06-26 10:20:59,616 - nucleo_rag - INFO - nucleo_rag:121 - CacheManager inicializado. Diretório de cache: .cache_embeddings
+2025-06-26 10:20:59,618 - nucleo_rag.RAGSystem - INFO - nucleo_rag:277 - Cache de embeddings habilitado. Diretório: .cache_embeddings, TTL: 86400s
+2025-06-26 10:20:59,618 - nucleo_rag.RAGSystem - INFO - nucleo_rag:282 - Carregando modelo de embedding: intfloat/multilingual-e5-large
+2025-06-26 10:20:59,625 - sentence_transformers.SentenceTransformer - INFO - SentenceTransformer:211 - Use pytorch device_name: cpu
+2025-06-26 10:20:59,625 - sentence_transformers.SentenceTransformer - INFO - SentenceTransformer:219 - Load pretrained SentenceTransformer: intfloat/multilingual-e5-large
+2025-06-26 10:21:07,326 - nucleo_rag.RAGSystem - INFO - nucleo_rag:284 - Modelo de embedding carregado.
+2025-06-26 10:21:07,327 - nucleo_rag.RAGSystem - INFO - nucleo_rag:288 - Configurando modelo Gemini: gemini-2.0-flash-lite
+2025-06-26 10:21:07,328 - nucleo_rag.RAGSystem - INFO - nucleo_rag:290 - Modelo Gemini configurado.
+2025-06-26 10:21:07,328 - nucleo_rag.RAGSystem - INFO - nucleo_rag:298 - Inicializando vector store...
+2025-06-26 10:21:07,330 - nucleo_rag.RAGSystem - INFO - nucleo_rag:308 - Índice FAISS (IndexFlatL2) criado (dim 1024).
+2025-06-26 10:21:07,330 - nucleo_rag.RAGSystem - INFO - nucleo_rag:329 - Processando documento alvo: dados_rag\IDDC.pdf
+2025-06-26 10:21:07,331 - nucleo_rag.RAGSystem - INFO - nucleo_rag:298 - Inicializando vector store...
+2025-06-26 10:21:07,332 - nucleo_rag.RAGSystem - INFO - nucleo_rag:308 - Índice FAISS (IndexFlatL2) criado (dim 1024).
+2025-06-26 10:21:07,333 - nucleo_rag - INFO - nucleo_rag:252 - Extraindo texto de: dados_rag\IDDC.pdf (ext: .pdf)
+2025-06-26 10:21:12,313 - nucleo_rag.RAGSystem - INFO - nucleo_rag:340 - Processando 328 chunks de 'IDDC.pdf'. Verificando cache...
+2025-06-26 10:21:12,316 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: Título do Documento: Instrução de Trabalho
+INTERVE... Removendo.
+2025-06-26 10:21:12,321 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: das alterações
+--- 02/08/2010 Emissão inicial – At... Removendo.
+2025-06-26 10:21:12,325 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: –Om-Op-018, Io–Om-Op-006, Io–
+Om-Op-042, Io–Om-Op-... Removendo.
+2025-06-26 10:21:12,329 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 
+c 24/01/2024 03 Revisão geral do conteúdo técnico... Removendo.
+2025-06-26 10:21:12,332 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: GT com Representantes da: ED/OP, ED/OP
+SD/SD, DCD/... Removendo.
+2025-06-26 10:21:12,336 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  Senna Soares – ED/OP;
+Lucas Testoni Costa Balsant... Removendo.
+2025-06-26 10:21:12,340 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  – EM/MP; Thales de Andrade F Lima – SD/SU; Tiago ... Removendo.
+2025-06-26 10:21:12,343 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: iz – EM
+Classificação: Interno
+Título do Documento... Removendo.
+2025-06-26 10:21:12,347 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ......................... 5
+2 CONTEÚDO .............. Removendo.
+2025-06-26 10:21:12,350 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ............. 5
+4 ABREVIATURAS E TERMINOLOGIAS ...... Removendo.
+2025-06-26 10:21:12,353 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: a ................................................... Removendo.
+2025-06-26 10:21:12,357 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ição – COD .......................................... Removendo.
+2025-06-26 10:21:12,361 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ............................................ 18
+5.... Removendo.
+2025-06-26 10:21:12,364 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 5.6 Supervisor de Serviço ........................... Removendo.
+2025-06-26 10:21:12,367 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: rizada .............................................. Removendo.
+2025-06-26 10:21:12,369 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ............................................... 21... Removendo.
+2025-06-26 10:21:12,373 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ................. 21
+8.2 Intervenções Programadas ... Removendo.
+2025-06-26 10:21:12,376 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: rvenções Programadas ................................ Removendo.
+2025-06-26 10:21:12,380 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: Tensão e
+Baixa Tensão em Caráter de Urgência e de ... Removendo.
+2025-06-26 10:21:12,383 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  – IDDC
+8.5 Procedimentos Específicos para Liberaç... Removendo.
+2025-06-26 10:21:12,387 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ........................... 30
+8.7 Intervenção em ... Removendo.
+2025-06-26 10:21:12,390 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  APÓS INTERRUPÇÃO ACIDENTAL .......... 33
+9.1 Rede... Removendo.
+2025-06-26 10:21:12,393 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 33
+9.3 Rede de Distribuição Mista – (RDU/RDR) ....... Removendo.
+2025-06-26 10:21:12,398 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: S e RDI) ............................................ Removendo.
+2025-06-26 10:21:12,402 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 
+9.6.1 Circuitos de Religadores e Seccionalizadore... Removendo.
+2025-06-26 10:21:12,406 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ..................................................... Removendo.
+2025-06-26 10:21:12,408 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ............ 38
+12 UTILIZAÇÃO DE SINALIZAÇÃO DE AD... Removendo.
+2025-06-26 10:21:12,411 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  Supervisão e Controle .............................. Removendo.
+2025-06-26 10:21:12,416 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ................................... 40
+12.2.3 Sina... Removendo.
+2025-06-26 10:21:12,420 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: .............. 41
+12.3 Sinalização nos Equipamento... Removendo.
+2025-06-26 10:21:12,423 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  Documento: Instrução de Trabalho
+INTERVENÇÃO EM C... Removendo.
+2025-06-26 10:21:12,427 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ..................................................... Removendo.
+2025-06-26 10:21:12,430 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ..................................................... Removendo.
+2025-06-26 10:21:12,434 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: rios, procedimentos e responsabilidades para inter... Removendo.
+2025-06-26 10:21:12,438 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ão, segurança do sistema elétrico, preservação do ... Removendo.
+2025-06-26 10:21:12,441 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: imentos para a execução de manobras em circuitos e... Removendo.
+2025-06-26 10:21:12,445 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: uitos e equipamentos
+de Média e Baixa Tensão do Si... Removendo.
+2025-06-26 10:21:12,450 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ssionamento de novos circuitos e equipamentos.
+c) ... Removendo.
+2025-06-26 10:21:12,453 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: lossário do Sistema de Gestão, e as relacionadas a... Removendo.
+2025-06-26 10:21:12,456 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: de Trabalho
+INTERVENÇÃO EM CIRCUITOS DE MÉDIA E
+IO... Removendo.
+2025-06-26 10:21:12,460 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  Tensão
+ NR – Norma Regulamentadora
+ NS – Nota d... Removendo.
+2025-06-26 10:21:12,463 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ede de Distribuição Subterrânea
+ RDU – Rede de Di... Removendo.
+2025-06-26 10:21:12,466 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ações próprias a instalações de propriedade de dis... Removendo.
+2025-06-26 10:21:12,470 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: se refere às conexões intencionais à terra, durant... Removendo.
+2025-06-26 10:21:12,473 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  DE MÉDIA E
+IO – DCD – 0001- c
+BAIXA TENSÃO – IDDC... Removendo.
+2025-06-26 10:21:12,477 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: função de interrupção programada.
+4.2.5 Centro de ... Removendo.
+2025-06-26 10:21:12,480 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: trico de distribuição da Cemig.
+4.2.6 Centro de Se... Removendo.
+2025-06-26 10:21:12,484 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 4.2.7 Circuitos de Média Tensão
+Entende-se por cir... Removendo.
+2025-06-26 10:21:12,488 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  de Baixa Tensão, no Sistema de Distribuição da Ce... Removendo.
+2025-06-26 10:21:12,490 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ravés do Sistema Elétrico da Cemig ou de acessante... Removendo.
+2025-06-26 10:21:12,493 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: lo do Documento: Instrução de Trabalho
+INTERVENÇÃO... Removendo.
+2025-06-26 10:21:12,497 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  Média Tensão e Baixa Tensão que irão delimitar
+os... Removendo.
+2025-06-26 10:21:12,501 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: as.
+4.2.12 Defeito
+Toda alteração física, química ... Removendo.
+2025-06-26 10:21:12,505 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: édia Tensão protegido por equipamento derivado do ... Removendo.
+2025-06-26 10:21:12,509 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  abertura
+da (s) fonte (s), não garantindo a condi... Removendo.
+2025-06-26 10:21:12,513 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: nto
+Equipamento interruptor que interliga o sistem... Removendo.
+2025-06-26 10:21:12,516 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: . São
+considerados como exemplos de dispositivos o... Removendo.
+2025-06-26 10:21:12,520 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ísico
+Sistema de travamento, preferencialmente fei... Removendo.
+2025-06-26 10:21:12,523 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: Dispositivo destinado a inibir o DRA e reduzir o t... Removendo.
+2025-06-26 10:21:12,527 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: .
+4.2.20 Em Serviço
+Expressão utilizada para carac... Removendo.
+2025-06-26 10:21:12,530 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  circuitos de Média
+Tensão e Baixa Tensão, gerando... Removendo.
+2025-06-26 10:21:12,533 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  aos ativos de rede responsáveis direta ou indiret... Removendo.
+2025-06-26 10:21:12,536 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 4.2.23 Estação
+Designação genérica de usinas, sube... Removendo.
+2025-06-26 10:21:12,539 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  Trabalho
+INTERVENÇÃO EM CIRCUITOS DE MÉDIA E
+IO –... Removendo.
+2025-06-26 10:21:12,542 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o está fora de serviço quando sua função principal... Removendo.
+2025-06-26 10:21:12,547 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: falhas em
+equipamentos, vandalismo, abalroamentos,... Removendo.
+2025-06-26 10:21:12,550 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: mentos;
+b) Executar atividade (s) em instalações e... Removendo.
+2025-06-26 10:21:12,553 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: a em equipamento entregue para a
+operação, por mei... Removendo.
+2025-06-26 10:21:12,556 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ções:
+a) Atividades em qualquer equipamento e inst... Removendo.
+2025-06-26 10:21:12,559 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: io do religamento automático no dispositivo
+de pro... Removendo.
+2025-06-26 10:21:12,564 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  comando dos equipamentos telecontrolados de rede
+... Removendo.
+2025-06-26 10:21:12,566 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: nte de falha
+ou defeito em circuitos de Média Tens... Removendo.
+2025-06-26 10:21:12,570 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 24 horas a partir da identificação.
+4.2.29 Interve... Removendo.
+2025-06-26 10:21:12,572 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: enções Simultâneas
+São aquelas intervenções onde h... Removendo.
+2025-06-26 10:21:12,575 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: por falha ou defeito em circuitos de Média Tensão ... Removendo.
+2025-06-26 10:21:12,579 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: do
+Termo empregado para caracterizar um equipament... Removendo.
+2025-06-26 10:21:12,581 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: E
+IO – DCD – 0001- c
+BAIXA TENSÃO – IDDC
+4.2.33 Ju... Removendo.
+2025-06-26 10:21:12,584 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  a realização segura das atividades e
+cumprimento ... Removendo.
+2025-06-26 10:21:12,587 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: e
+equipamentos, dispositivos, circuitos ou parte d... Removendo.
+2025-06-26 10:21:12,590 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: rogramada Simplificada
+Manobra que envolva o desli... Removendo.
+2025-06-26 10:21:12,593 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o para identificar um ponto elétrico anterior a um... Removendo.
+2025-06-26 10:21:12,595 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: Documento: Instrução de Trabalho
+INTERVENÇÃO EM CI... Removendo.
+2025-06-26 10:21:12,598 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: stações para execução de intervenções.
+Critérios e... Removendo.
+2025-06-26 10:21:12,602 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ada ou capacitada conforme NR 10, cadastrada no
+si... Removendo.
+2025-06-26 10:21:12,605 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: E deve atender os critérios estabelecidos na Norma... Removendo.
+2025-06-26 10:21:12,607 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: mentos e à manutenção das condições requeridas dur... Removendo.
+2025-06-26 10:21:12,610 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: empregado para caracterizar desligamentos intencio... Removendo.
+2025-06-26 10:21:12,613 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: álise da condição requerida.
+4.2.44 Ponto de Conex... Removendo.
+2025-06-26 10:21:12,617 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: nção do sistema, não sendo necessariamente o
+ponto... Removendo.
+2025-06-26 10:21:12,621 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: abalho
+INTERVENÇÃO EM CIRCUITOS DE MÉDIA E
+IO – DC... Removendo.
+2025-06-26 10:21:12,625 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: e Intervenção em Circuitos de Média Tensão e Baixa... Removendo.
+2025-06-26 10:21:12,628 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o
+Componente do sistema elétrico destinado à distr... Removendo.
+2025-06-26 10:21:12,631 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: U
+São aquelas redes que atendem a áreas exclusivam... Removendo.
+2025-06-26 10:21:12,634 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: anas isoladas, sendo atendidos a partir de derivaç... Removendo.
+2025-06-26 10:21:12,637 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  população e os domicílios recenseados em toda a á... Removendo.
+2025-06-26 10:21:12,641 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ores rurais ou mistos.
+Página 14 de 43
+Classificaç... Removendo.
+2025-06-26 10:21:12,644 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: urbanas e rurais. Comumente têm origem em
+uma área... Removendo.
+2025-06-26 10:21:12,652 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: oordenados pelo centro responsável, no
+âmbito da s... Removendo.
+2025-06-26 10:21:12,656 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: de Potência, ou seja, conforme a norma regulamenta... Removendo.
+2025-06-26 10:21:12,658 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o, medição e distribuição).
+4.2.53 Serviço de Dist... Removendo.
+2025-06-26 10:21:12,662 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ões eletrônicas em sistemas de supervisão e contro... Removendo.
+2025-06-26 10:21:12,664 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 4.2.55 Solicitação de Intervenção
+É o pedido de in... Removendo.
+2025-06-26 10:21:12,667 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ção: Interno
+Título do Documento: Instrução de Tra... Removendo.
+2025-06-26 10:21:12,669 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o no sistema corporativo para solicitar intervençõ... Removendo.
+2025-06-26 10:21:12,674 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: tabelecidos nesta instrução.
+4.2.58 Transferência ... Removendo.
+2025-06-26 10:21:12,679 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  diretamente pelo equipamento de proteção da
+estaç... Removendo.
+2025-06-26 10:21:12,682 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: e forma não programada. Requer ação com a maior
+br... Removendo.
+2025-06-26 10:21:12,687 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: -lhe as seguintes atribuições:
+a) Atuar sempre par... Removendo.
+2025-06-26 10:21:12,689 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: cuitos de Média Tensão e Baixa
+Tensão, no âmbito d... Removendo.
+2025-06-26 10:21:12,692 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ÃO – IDDC
+solicitadas em função das prioridades e ... Removendo.
+2025-06-26 10:21:12,696 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: as ações serão realizadas baseadas na
+análise efet... Removendo.
+2025-06-26 10:21:12,699 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: enção em circuitos de Média Tensão e Baixa Tensão,... Removendo.
+2025-06-26 10:21:12,702 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  tensão e
+carregamento do sistema elétrico dentro ... Removendo.
+2025-06-26 10:21:12,705 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: despacho de serviços de Média Tensão conforme parâ... Removendo.
+2025-06-26 10:21:12,707 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o de energia aos consumidores e a preservação
+do m... Removendo.
+2025-06-26 10:21:12,712 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  sua supervisão direta, em circuitos
+delegados;
+c)... Removendo.
+2025-06-26 10:21:12,716 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: a 17 de 43
+Classificação: Interno
+Título do Docume... Removendo.
+2025-06-26 10:21:12,719 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 
+necessários e autorização para execução dos servi... Removendo.
+2025-06-26 10:21:12,721 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: rizar os serviços de construção e manutenção que s... Removendo.
+2025-06-26 10:21:12,726 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: a atualização de cadastro da rede, tais como: Os
+c... Removendo.
+2025-06-26 10:21:12,728 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ervenção
+a) Informar na solicitação da intervenção... Removendo.
+2025-06-26 10:21:12,731 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: m caso de desligamentos para clientes de Média Ten... Removendo.
+2025-06-26 10:21:12,734 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: orativo da Cemig, fornecendo as
+informações necess... Removendo.
+2025-06-26 10:21:12,736 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  identificação no sistema corporativo
+georreferenc... Removendo.
+2025-06-26 10:21:12,739 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: a Cemig se as
+informações indicadas (documentos, s... Removendo.
+2025-06-26 10:21:12,741 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: s) nas solicitações atendem à condição requerida e... Removendo.
+2025-06-26 10:21:12,745 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ações e solicitações quando
+verificada a necessida... Removendo.
+2025-06-26 10:21:12,747 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: cação ou acoplamento
+de novos serviços, informando... Removendo.
+2025-06-26 10:21:12,751 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ipes o atendimento às condições
+requeridas para a ... Removendo.
+2025-06-26 10:21:12,753 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: mento dos serviços.
+d) Deve permanecer no local du... Removendo.
+2025-06-26 10:21:12,755 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: s os aspectos relacionados com a segurança das pes... Removendo.
+2025-06-26 10:21:12,757 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  com as equipes executantes das intervenções, as a... Removendo.
+2025-06-26 10:21:12,761 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: na 19 de 43
+Classificação: Interno
+Título do Docum... Removendo.
+2025-06-26 10:21:12,765 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: da intervenção, o(s) ponto(s) e confirmar a instal... Removendo.
+2025-06-26 10:21:12,768 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  trabalho de acordo com os procedimentos
+vigentes;... Removendo.
+2025-06-26 10:21:12,770 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: spectos relacionados com a segurança das pessoas
+e... Removendo.
+2025-06-26 10:21:12,772 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ente
+sejam rigorosamente observadas durante a exec... Removendo.
+2025-06-26 10:21:12,774 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: e as sinalizações e dispositivos de bloqueio físic... Removendo.
+2025-06-26 10:21:12,779 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: alho de acordo com os procedimentos
+vigentes;
+h) I... Removendo.
+2025-06-26 10:21:12,781 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: fim.
+Página 20 de 43
+Classificação: Interno
+Título... Removendo.
+2025-06-26 10:21:12,786 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: atado e Terceiro
+Legalmente Habilitado no sistema ... Removendo.
+2025-06-26 10:21:12,789 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: abilitações exigidas pela Cemig.
+7 AUTORIZAÇÃO DE ... Removendo.
+2025-06-26 10:21:12,792 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ara estes empregados interagirem em circuitos de M... Removendo.
+2025-06-26 10:21:12,795 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: es
+8.1.1 As intervenções em equipamentos, disposit... Removendo.
+2025-06-26 10:21:12,797 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ntro responsável.
+8.1.2 As intervenções ou energiz... Removendo.
+2025-06-26 10:21:12,800 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: sistema
+corporativo, vinculando a intervenção à eq... Removendo.
+2025-06-26 10:21:12,802 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: venção.
+8.1.4 Os circuitos, equipamentos e disposi... Removendo.
+2025-06-26 10:21:12,806 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: e Trabalho
+INTERVENÇÃO EM CIRCUITOS DE MÉDIA E
+IO ... Removendo.
+2025-06-26 10:21:12,811 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: entais.
+8.1.6 Antes da energização de circuitos de... Removendo.
+2025-06-26 10:21:12,815 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: entro de serviço responsável, no âmbito de sua sup... Removendo.
+2025-06-26 10:21:12,818 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: as condições de risco e implicações no sistema,
+po... Removendo.
+2025-06-26 10:21:12,820 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ara
+trabalhos com a Média Tensão energizada.
+8.1.9... Removendo.
+2025-06-26 10:21:12,823 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: visor de Serviço pode ser
+substituído, desde que o... Removendo.
+2025-06-26 10:21:12,826 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  condições requeridas, registrando o nome do
+Super... Removendo.
+2025-06-26 10:21:12,829 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: deve registrar estas solicitações no sistema corpo... Removendo.
+2025-06-26 10:21:12,833 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: em modo local, ou no caso de chaves de Vias,
+o dis... Removendo.
+2025-06-26 10:21:12,835 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 
+8.1.13 Para a execução dos diversos tipos de mano... Removendo.
+2025-06-26 10:21:12,838 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: r anormalidade que atrase a execução dos serviços,... Removendo.
+2025-06-26 10:21:12,840 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: nformado o mais rápido possível e justificada
+a mo... Removendo.
+2025-06-26 10:21:12,843 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: vem ser programadas em função dos
+seguintes critér... Removendo.
+2025-06-26 10:21:12,846 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: e e continuidade do fornecimento de energia aos
+co... Removendo.
+2025-06-26 10:21:12,849 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 8.2.1.2 As solicitações para intervenções em equip... Removendo.
+2025-06-26 10:21:12,852 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: z) dias úteis para manobras simplificadas definida... Removendo.
+2025-06-26 10:21:12,856 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 8.2.1.3 Nos casos de urgência as solicitações pode... Removendo.
+2025-06-26 10:21:12,858 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ENÇÃO EM CIRCUITOS DE MÉDIA E
+IO – DCD – 0001- c
+B... Removendo.
+2025-06-26 10:21:12,862 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o regulador.
+8.2.1.5 O acompanhamento das solicita... Removendo.
+2025-06-26 10:21:12,865 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: sistema
+corporativo específico, cuja validação ser... Removendo.
+2025-06-26 10:21:12,869 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ou croqui, e/ou coordenadas, de forma a permitir a... Removendo.
+2025-06-26 10:21:12,872 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ço, com respectivos
+telefones a serem usados na fa... Removendo.
+2025-06-26 10:21:12,875 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: as
+com antecedências inferiores às mínimas previst... Removendo.
+2025-06-26 10:21:12,880 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ramadas em circuitos de Média Tensão e Baixa Tensã... Removendo.
+2025-06-26 10:21:12,883 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: eve ser vinculado à
+respectiva solicitação de mano... Removendo.
+2025-06-26 10:21:12,886 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: e distribuição são
+divididas em 02 (dois) tipos de... Removendo.
+2025-06-26 10:21:12,890 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: sabilidade da Área de
+Página 24 de 43
+Classificaçã... Removendo.
+2025-06-26 10:21:12,893 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: viço
+de Distribuição. Na elaboração da sequência d... Removendo.
+2025-06-26 10:21:12,896 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  As solicitações devem ser analisadas (aprovadas, ... Removendo.
+2025-06-26 10:21:12,899 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: edimentos específicos do COD e 05 (cinco) dias úte... Removendo.
+2025-06-26 10:21:12,903 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: obras simplificadas, o aprovador de
+solicitações d... Removendo.
+2025-06-26 10:21:12,906 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: tifique manobra
+prévia.
+8.2.1.14 As manobras devem... Removendo.
+2025-06-26 10:21:12,911 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: necessário, solicitará o
+uso da equipe de Linha Vi... Removendo.
+2025-06-26 10:21:12,914 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o, a
+solicitação deve ser reprovada pelo responsáv... Removendo.
+2025-06-26 10:21:12,918 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: lanejamento, ficando o prazo de liberação condicio... Removendo.
+2025-06-26 10:21:12,921 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  a Área de Programação de Alta Tensão.
+Página 25 d... Removendo.
+2025-06-26 10:21:12,925 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: Programação de Alta Tensão
+do COD em atendimento a... Removendo.
+2025-06-26 10:21:12,928 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: do implicar em necessidade de estudos de engenhari... Removendo.
+2025-06-26 10:21:12,932 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: er o sistema elétrico a condições anormais de oper... Removendo.
+2025-06-26 10:21:12,935 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: poiará a Sala de Controle.
+8.2.1.21 A sequência de... Removendo.
+2025-06-26 10:21:12,937 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ções dispostas no
+item 8.7.
+8.2.2 Realização das I... Removendo.
+2025-06-26 10:21:12,940 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: dade no sistema. Em ambos os casos, deve avaliar s... Removendo.
+2025-06-26 10:21:12,944 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ssa ser realizado pela equipe
+de campo, este fato ... Removendo.
+2025-06-26 10:21:12,949 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: as 15h do
+último dia útil anterior à data da execu... Removendo.
+2025-06-26 10:21:12,952 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: cumento: Instrução de Trabalho
+INTERVENÇÃO EM CIRC... Removendo.
+2025-06-26 10:21:12,955 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: nobra pelo
+responsável pela programação, sendo que... Removendo.
+2025-06-26 10:21:12,958 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  análise das solicitações, sendo verificada a nece... Removendo.
+2025-06-26 10:21:12,964 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o verificada a necessidade de
+aproveitamento do de... Removendo.
+2025-06-26 10:21:12,967 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: a Intervenção em Circuitos de Média Tensão e
+Baixa... Removendo.
+2025-06-26 10:21:12,972 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 8.4.2 As solicitações de intervenções emergenciais... Removendo.
+2025-06-26 10:21:12,975 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: gar o trecho
+a ser trabalhado, o solicitante deve ... Removendo.
+2025-06-26 10:21:12,978 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: isar
+através do sistema corporativo georreferencia... Removendo.
+2025-06-26 10:21:12,981 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 27 de 43
+Classificação: Interno
+Título do Document... Removendo.
+2025-06-26 10:21:12,984 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: , somente pode ser informado como referências váli... Removendo.
+2025-06-26 10:21:12,987 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: houver mais de um circuito
+envolvido na condição r... Removendo.
+2025-06-26 10:21:12,998 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: corporativo
+georreferenciado da Cemig pelo COD.
+8.... Removendo.
+2025-06-26 10:21:13,001 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: tema corporativo da Cemig.
+8.5.2 Para a análise da... Removendo.
+2025-06-26 10:21:13,004 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: dor.
+Somente para área rural, pode ser informado t... Removendo.
+2025-06-26 10:21:13,007 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: mero de equipamento e/ou transformador corresponde... Removendo.
+2025-06-26 10:21:13,011 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ento e/ou transformador, a equipe deve informar pa... Removendo.
+2025-06-26 10:21:13,014 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 
+função de Proteção para Linha Viva do equipamento... Removendo.
+2025-06-26 10:21:13,017 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: balho
+INTERVENÇÃO EM CIRCUITOS DE MÉDIA E
+IO – DCD... Removendo.
+2025-06-26 10:21:13,019 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: eve ser realizado
+após contato com a equipe execut... Removendo.
+2025-06-26 10:21:13,022 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: Linha Desenergizada, deve ser definido um Supervis... Removendo.
+2025-06-26 10:21:13,025 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ante a execução de intervenções com a rede energiz... Removendo.
+2025-06-26 10:21:13,028 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: mo com acessantes, o COD deve analisar quais equip... Removendo.
+2025-06-26 10:21:13,031 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ecução de nenhuma intervenção no circuito de Média... Removendo.
+2025-06-26 10:21:13,034 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: unção de
+Proteção para Linha Viva ou o bloqueio do... Removendo.
+2025-06-26 10:21:13,037 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: entral
+devem ser abertas (Desabilitadas), a chave ... Removendo.
+2025-06-26 10:21:13,040 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ão de Trabalho
+INTERVENÇÃO EM CIRCUITOS DE MÉDIA E... Removendo.
+2025-06-26 10:21:13,043 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: lhos com a Média Tensão energizada.
+8.6 Intervençã... Removendo.
+2025-06-26 10:21:13,047 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: osto de Transformação pela equipe de Construção ou... Removendo.
+2025-06-26 10:21:13,051 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: perda de vida útil dos elementos fusíveis instalad... Removendo.
+2025-06-26 10:21:13,053 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ação do Posto de Transformação deve ser efetuada n... Removendo.
+2025-06-26 10:21:13,056 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: do Posto de Transformação só devem ser
+operadas (a... Removendo.
+2025-06-26 10:21:13,059 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  as instalações novas
+e/ou reformadas.
+8.6.7 Toda ... Removendo.
+2025-06-26 10:21:13,062 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: estudo e
+sinalização no sistema corporativo georre... Removendo.
+2025-06-26 10:21:13,064 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: vel é a nominal dos Postos de Transformação envolv... Removendo.
+2025-06-26 10:21:13,066 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: potência pode ser invertido em um Posto de
+Transfo... Removendo.
+2025-06-26 10:21:13,068 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: nciais ou acidentais, bem como as
+intervenções de ... Removendo.
+2025-06-26 10:21:13,070 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: iro atendimento emergencial em Média Tensão e
+Baix... Removendo.
+2025-06-26 10:21:13,073 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: e de ausência de tensão,
+aterramentos temporários ... Removendo.
+2025-06-26 10:21:13,077 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ança requerida não serão testados, sinalizados, at... Removendo.
+2025-06-26 10:21:13,080 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o do Serviço de Distribuição e/ou do COD pode ser ... Removendo.
+2025-06-26 10:21:13,082 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ique em extensão de rede ou de ramal de ligação na... Removendo.
+2025-06-26 10:21:13,085 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  haja confiabilidade e
+segurança na operação.
+8.7.... Removendo.
+2025-06-26 10:21:13,088 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ocumento: Instrução de Trabalho
+INTERVENÇÃO EM CIR... Removendo.
+2025-06-26 10:21:13,090 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: lados com automatismo de transferências, mesmo
+oco... Removendo.
+2025-06-26 10:21:13,093 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: rdenar as ações locais por meio
+das equipes, envia... Removendo.
+2025-06-26 10:21:13,097 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: possui circuitos elétricos com diferença de topolo... Removendo.
+2025-06-26 10:21:13,136 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: tidas em cada um destes circuitos.
+8.8 Intervenção... Removendo.
+2025-06-26 10:21:13,139 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: , caso esta premissa esteja contemplada no Acordo
+... Removendo.
+2025-06-26 10:21:13,141 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: sligamento e impedir energização
+acidental do circ... Removendo.
+2025-06-26 10:21:13,145 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  Proteção para Linha Viva ou o bloqueio do DRA, e
+... Removendo.
+2025-06-26 10:21:13,157 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: Acordo Operativo.
+Página 32 de 43
+Classificação: I... Removendo.
+2025-06-26 10:21:13,162 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ção Urbana – RDU
+9.1.1 Ocorrendo o bloqueio de um ... Removendo.
+2025-06-26 10:21:13,165 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: uações de risco.
+9.1.2 A ação de inspeção ou verif... Removendo.
+2025-06-26 10:21:13,167 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: .4 A falha identificada através de dispositivos te... Removendo.
+2025-06-26 10:21:13,171 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  seja identificada nenhuma
+falha, deve ser efetuad... Removendo.
+2025-06-26 10:21:13,174 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: echo a trecho com o DRA fora de serviço
+e o DST em... Removendo.
+2025-06-26 10:21:13,180 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 
+9.1.7 Depois de corrigida a falha, deve ser efetu... Removendo.
+2025-06-26 10:21:13,184 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  considerações dispostas
+no item 8.7.
+9.2 Rede de ... Removendo.
+2025-06-26 10:21:13,188 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ho após o equipamento de proteção possa ser caract... Removendo.
+2025-06-26 10:21:13,195 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: IO – DCD – 0001- c
+BAIXA TENSÃO – IDDC
+acordo com ... Removendo.
+2025-06-26 10:21:13,199 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ora de serviço e o DST em serviço, conforme Sequên... Removendo.
+2025-06-26 10:21:13,202 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ão de falha não é permissão para a equipe
+intervir... Removendo.
+2025-06-26 10:21:13,207 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: vés de verificações em clientes
+trifásicos, bancos... Removendo.
+2025-06-26 10:21:13,211 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  uma das fases.
+9.2.6 Nos casos de circuitos trifá... Removendo.
+2025-06-26 10:21:13,214 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  que esteja caracterizada que a falha está em apen... Removendo.
+2025-06-26 10:21:13,217 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: e Distribuição Mista – (RDU/RDR)
+9.3.1 Nas Redes d... Removendo.
+2025-06-26 10:21:13,224 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: l, nos casos em que após uma
+interrupção acidental... Removendo.
+2025-06-26 10:21:13,230 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 43
+Classificação: Interno
+Título do Documento: Ins... Removendo.
+2025-06-26 10:21:13,233 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  serviço ou não
+possuem a função de religamento au... Removendo.
+2025-06-26 10:21:13,238 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: uações de risco.
+9.4.3 A ação de inspeção ou verif... Removendo.
+2025-06-26 10:21:13,242 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 5 Caso haja equipamento de manobra na RDI, o COD p... Removendo.
+2025-06-26 10:21:13,247 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: A/RDS e RDI)
+9.5.1 Nesta configuração, seguir os c... Removendo.
+2025-06-26 10:21:13,250 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: de Serviço Via
+Sistema Corporativo
+9.6.1 Circuitos... Removendo.
+2025-06-26 10:21:13,254 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: olicitando autorização para atendimento.
+9.6.1.2 A... Removendo.
+2025-06-26 10:21:13,259 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o com os dados informados
+na Nota de Serviço receb... Removendo.
+2025-06-26 10:21:13,264 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: trechos urbanos e no item 9.2 para trechos rurais.... Removendo.
+2025-06-26 10:21:13,266 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: usível Repetidora
+9.6.2.1 Ao identificar uma chave... Removendo.
+2025-06-26 10:21:13,269 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ota de
+Serviço recebida pela equipe. Se houver nec... Removendo.
+2025-06-26 10:21:13,272 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: os.
+9.6.2.2 Caso a equipe encontre o equipamento a... Removendo.
+2025-06-26 10:21:13,279 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: aquele informado na Nota de Serviço, deve ser esta... Removendo.
+2025-06-26 10:21:13,282 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: echos rurais.
+9.6.3 Transformadores
+9.6.3.1 Ao ide... Removendo.
+2025-06-26 10:21:13,285 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  seja encontrado
+defeito no circuito que demande r... Removendo.
+2025-06-26 10:21:13,290 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: e tensão na Média Tensão, deve ser utilizada a fun... Removendo.
+2025-06-26 10:21:13,294 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: r encontrado fechado e falta de tensão na Média Te... Removendo.
+2025-06-26 10:21:13,299 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 
+Título do Documento: Instrução de Trabalho
+INTERV... Removendo.
+2025-06-26 10:21:13,302 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: tabelecidos no item 9.1 para
+restabelecimento dos ... Removendo.
+2025-06-26 10:21:13,307 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: r do COD a autorização de
+operação via item de man... Removendo.
+2025-06-26 10:21:13,312 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: rico pode ser concedida via telefone, desde que ha... Removendo.
+2025-06-26 10:21:13,316 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o do item anterior pela equipe.
+10.4 Em situações ... Removendo.
+2025-06-26 10:21:13,320 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: rativa, a
+execução superior a um item (ação de man... Removendo.
+2025-06-26 10:21:13,324 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: a e recebimento de trecho pressupõem a ação de
+def... Removendo.
+2025-06-26 10:21:13,329 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: terceiros, na qual o item de
+manobra deve conter a... Removendo.
+2025-06-26 10:21:13,333 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: viar mensagem livre ao COD com
+o texto “Aguardando... Removendo.
+2025-06-26 10:21:13,337 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ão de Trabalho
+INTERVENÇÃO EM CIRCUITOS DE MÉDIA E... Removendo.
+2025-06-26 10:21:13,342 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: diferente do
+informado na ação de manobra, deve pa... Removendo.
+2025-06-26 10:21:13,346 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: rada dos
+equipamentos. Caso haja alguma divergênci... Removendo.
+2025-06-26 10:21:13,351 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ovação e
+liberação para execução. Em situações exc... Removendo.
+2025-06-26 10:21:13,355 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: uipamentos telecontrolados, as informações e
+indic... Removendo.
+2025-06-26 10:21:13,360 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: proteção sem efetuar tentativa de
+religamento, sen... Removendo.
+2025-06-26 10:21:13,365 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: gamentos automáticos nas situações de
+desequilíbri... Removendo.
+2025-06-26 10:21:13,368 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: itida mediante autorização do COD, após
+interação ... Removendo.
+2025-06-26 10:21:13,372 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: : Instrução de Trabalho
+INTERVENÇÃO EM CIRCUITOS D... Removendo.
+2025-06-26 10:21:13,377 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: rompidos sem interrupção de
+energia, a equipe deve... Removendo.
+2025-06-26 10:21:13,382 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: es situações:
+a) Testes via telecontrole em Subest... Removendo.
+2025-06-26 10:21:13,388 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  Religador contendo curva rápida.
+12 UTILIZAÇÃO DE... Removendo.
+2025-06-26 10:21:13,394 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: tá
+prevista a utilização de diversos tipos de sina... Removendo.
+2025-06-26 10:21:13,398 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: de advertência destinam-se a transmitir uma
+mensag... Removendo.
+2025-06-26 10:21:13,405 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ca para a qual se destinam. Juntamente com as sina... Removendo.
+2025-06-26 10:21:13,408 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ísico devem ser colocados preferencialmente nos
+po... Removendo.
+2025-06-26 10:21:13,412 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: 
+Página 39 de 43
+Classificação: Interno
+Título do ... Removendo.
+2025-06-26 10:21:13,416 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: o e Baixa Tensão, usam-se etiquetas e placas eletr... Removendo.
+2025-06-26 10:21:13,419 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: rem os executantes de serviços
+diferentes envolvid... Removendo.
+2025-06-26 10:21:13,422 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: pamentos que possam energizar o
+circuito de Média ... Removendo.
+2025-06-26 10:21:13,426 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  na condição
+“fora de serviço”, tendo como finalid... Removendo.
+2025-06-26 10:21:13,429 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: . Deve ser colocada conforme a sequência de manobr... Removendo.
+2025-06-26 10:21:13,433 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: , podendo estar com tensão em uma de suas extremid... Removendo.
+2025-06-26 10:21:13,436 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  Distribuição que atendem a condição
+requerida.
+12... Removendo.
+2025-06-26 10:21:13,440 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: erem manobrados, conforme as condições
+Página 40 d... Removendo.
+2025-06-26 10:21:13,444 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: erem em vigor os
+respectivos documentos de liberaç... Removendo.
+2025-06-26 10:21:13,447 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: da intervenção.
+12.2.2.3 Após a colocação de sinal... Removendo.
+2025-06-26 10:21:13,452 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: podem ser desligados sem comunicação prévia com o ... Removendo.
+2025-06-26 10:21:13,455 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: , ele somente pode ser
+religado após contato com o... Removendo.
+2025-06-26 10:21:13,459 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: izar equipamentos que se
+encontram com alguma limi... Removendo.
+2025-06-26 10:21:13,462 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  não sendo,
+portanto, utilizadas para proteção de ... Removendo.
+2025-06-26 10:21:13,465 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: antidos
+temporariamente fora da posição normal de ... Removendo.
+2025-06-26 10:21:13,469 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ito energizado, onde se aplica a sinalização verde... Removendo.
+2025-06-26 10:21:13,472 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ser retirada quando do retorno da condição
+normal ... Removendo.
+2025-06-26 10:21:13,475 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: entos que garantam a condição de
+desenergização do... Removendo.
+2025-06-26 10:21:13,479 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: , manobrados localmente, onde for
+necessária a ati... Removendo.
+2025-06-26 10:21:13,481 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  condição requerida.
+12.3.1.4 Nenhuma ação deve se... Removendo.
+2025-06-26 10:21:13,484 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: A observância do conteúdo desta instrução pressupõ... Removendo.
+2025-06-26 10:21:13,487 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ade da gerência
+responsável pelo treinamento na em... Removendo.
+2025-06-26 10:21:13,490 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave:  previstos nesta instrução, bem como aqueles consi... Removendo.
+2025-06-26 10:21:13,493 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: nto: Instrução de Trabalho
+INTERVENÇÃO EM CIRCUITO... Removendo.
+2025-06-26 10:21:13,497 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: ELABORADORES
+Amarildo Eustáquio Bueno – ED/OP
+Brun... Removendo.
+2025-06-26 10:21:13,499 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: Luiz Cláudio Souza Abreu – GP/DC
+Marlon Alves More... Removendo.
+2025-06-26 10:21:13,502 - nucleo_rag - INFO - nucleo_rag:143 - Cache expirado para a chave: – SD/SU
+Varlei Guimarães da Silva – ED/OP
+Página 4... Removendo.
+2025-06-26 10:21:13,503 - nucleo_rag.RAGSystem - INFO - nucleo_rag:358 - Gerando embeddings para 328 chunks não cacheados...
+2025-06-26 10:24:50,274 - nucleo_rag.RAGSystem - INFO - nucleo_rag:370 - Gerados e cacheados 328 novos embeddings.
+2025-06-26 10:24:50,332 - nucleo_rag.RAGSystem - INFO - nucleo_rag:387 - Adicionados 328 vetores de 'IDDC.pdf' ao FAISS. Total no índice: 328.
+2025-06-26 10:24:50,346 - nucleo_rag - INFO - nucleo_rag:512 - Instância RAGSystem criada.
+2025-06-26 10:24:50,346 - nucleo_rag - INFO - nucleo_rag:514 - Componentes RAG inicializados, foco em 'IDDC.pdf'.
+2025-06-26 10:24:50,458 - nucleo_rag - INFO - nucleo_rag:589 - 🚀 Iniciando Flask em http://0.0.0.0:5000 (Debug: False)
+2025-06-26 10:24:50,910 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.228.106:5000
+2025-06-26 10:24:50,912 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-06-26 10:31:03,908 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 10:31:03] "GET /ui HTTP/1.1" 200 -
+2025-06-26 10:31:14,230 - nucleo_rag - INFO - nucleo_rag:543 - API /api/ask: Pergunta: 'o que é IDDC? ...'
+2025-06-26 10:31:14,236 - nucleo_rag.RAGSystem - INFO - nucleo_rag:431 - Gerando embedding para pergunta: 'o que é IDDC? ...'
+2025-06-26 10:31:16,795 - nucleo_rag.RAGSystem - INFO - nucleo_rag:437 - Buscando contexto de 'IDDC.pdf'...
+2025-06-26 10:31:18,382 - nucleo_rag.RAGSystem - INFO - nucleo_rag:459 - Enviando prompt para Gemini...
+2025-06-26 10:31:20,615 - nucleo_rag.RAGSystem - INFO - nucleo_rag:469 - Resposta Gemini: IDDC significa "INTERVENÇÃO EM CIRCUITOS DE MÉDIA E BAIXA TENSÃO".
+...
+2025-06-26 10:31:20,617 - nucleo_rag - INFO - nucleo_rag:551 - API /api/ask: Resposta: 'IDDC significa "INTERVENÇÃO EM CIRCUITOS DE MÉDIA E BAIXA TENSÃO"....'
+2025-06-26 10:31:20,628 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 10:31:20] "POST /api/ask HTTP/1.1" 200 -
+2025-06-26 10:33:41,344 - nucleo_rag - INFO - nucleo_rag:543 - API /api/ask: Pergunta: 'o que é MAnobra? ...'
+2025-06-26 10:33:41,346 - nucleo_rag.RAGSystem - INFO - nucleo_rag:431 - Gerando embedding para pergunta: 'o que é MAnobra? ...'
+2025-06-26 10:33:42,007 - nucleo_rag.RAGSystem - INFO - nucleo_rag:437 - Buscando contexto de 'IDDC.pdf'...
+2025-06-26 10:33:42,012 - nucleo_rag.RAGSystem - INFO - nucleo_rag:459 - Enviando prompt para Gemini...
+2025-06-26 10:33:43,156 - nucleo_rag.RAGSystem - INFO - nucleo_rag:469 - Resposta Gemini: Manobra é um método operacional que efetua uma mudança na configuração ou estado de um circuito elét...
+2025-06-26 10:33:43,157 - nucleo_rag - INFO - nucleo_rag:551 - API /api/ask: Resposta: 'Manobra é um método operacional que efetua uma mudança na configuração ou estado de um circuito elét...'
+2025-06-26 10:33:43,159 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 10:33:43] "POST /api/ask HTTP/1.1" 200 -
+2025-06-26 15:12:04,368 - nucleo_rag - INFO - nucleo_rag:543 - API /api/ask: Pergunta: 'o que é COD? ...'
+2025-06-26 15:12:04,376 - nucleo_rag.RAGSystem - INFO - nucleo_rag:431 - Gerando embedding para pergunta: 'o que é COD? ...'
+2025-06-26 15:12:08,500 - nucleo_rag.RAGSystem - INFO - nucleo_rag:437 - Buscando contexto de 'IDDC.pdf'...
+2025-06-26 15:12:08,555 - nucleo_rag.RAGSystem - INFO - nucleo_rag:459 - Enviando prompt para Gemini...
+2025-06-26 15:12:10,008 - nucleo_rag.RAGSystem - INFO - nucleo_rag:469 - Resposta Gemini: O COD (Centro de Operação da Distribuição) é um conjunto centralizado de pessoal, informações, equip...
+2025-06-26 15:12:10,011 - nucleo_rag - INFO - nucleo_rag:551 - API /api/ask: Resposta: 'O COD (Centro de Operação da Distribuição) é um conjunto centralizado de pessoal, informações, equip...'
+2025-06-26 15:12:10,025 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [26/Jun/2025 15:12:10] "POST /api/ask HTTP/1.1" 200 -

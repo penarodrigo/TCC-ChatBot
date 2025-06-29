@@ -88,7 +88,7 @@ setup(
     
     # Configurações de pacotes
     packages=find_packages(),
-    py_modules=["rag_gemini_improved"], # Adicionado para o módulo principal
+    py_modules=["nucleo_rag"], # Módulo principal do sistema RAG
     include_package_data=True, # Deve aparecer apenas uma vez
     
     # Versão mínima do Python
@@ -137,8 +137,8 @@ setup(
     # Scripts de linha de comando
       entry_points={
           'console_scripts': [
-              'rag-gemini=rag_gemini_improved:main',  # Para operações de linha de comando
-              'rag-server=rag_gemini_improved:run_server', # Para iniciar o servidor web
+              'rag-gemini=nucleo_rag:main',  # Para operações de linha de comando
+              'rag-server=nucleo_rag:run_server', # Para iniciar o servidor web
           ],
       },
   
@@ -212,32 +212,33 @@ def run_linting():
 def create_sample_config():
     """Cria arquivos de configuração de exemplo"""
     import shutil
-    
-    # Criar .env de exemplo se não existir
-    # Padronizando para .env, assumindo que .env.example existe ou ser&#225; criado manualmente.
-    # if not os.path.exists('.env') and os.path.exists('.env.example'):
-    #     shutil.copy('.env.example', '.env')
-    #     print(" Arquivo .env criado a partir do .env.example. Certifique-se de preench&#234;-lo.")
-    
+
     # Criar diretório de dados
     data_dir = 'dados_rag'
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
-        print(f" Diretório {data_dir} criado")
+        print(f"Diretório {data_dir} criado")
 
 if __name__ == '__main__':
     # Se executado diretamente, fazer algumas verificações
     print("Configurando Sistema RAG com Google Gemini...")
-    
+
     # Verificar Python
     print(f" Python {sys.version}")
-    
+
+    # Verificar GOOGLE_API_KEY
+    api_key = os.getenv("GOOGLE_API_KEY")
+    if not api_key:
+        print("Erro: GOOGLE_API_KEY não foi encontrada no arquivo .env")
+    else:
+        print(f"GOOGLE_API_KEY carregada: {api_key[:4]}...")  # Exibe os primeiros caracteres para verificar
+
     # Criar configurações de exemplo
     create_sample_config()
-    
+
     print("Setup concluído!")
     print("\nPróximos passos:")
     print("1. pip install -e .")
     print("2. Configure sua GOOGLE_API_KEY no arquivo .env")
-    print("3. python rag_gemini_improved.py (ou use os entry points: rag-gemini / rag-server)")
+    print("3. python nucleo_rag.py (ou use os entry points: rag-gemini / rag-server)")
     print("\n Acesse: http://localhost:5000")

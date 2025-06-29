@@ -2,6 +2,6 @@
 __pycache__/
 *.pyc
 .venv/
-env_file.env
 .env
 htmlcov/
+.cache_embeddings/
