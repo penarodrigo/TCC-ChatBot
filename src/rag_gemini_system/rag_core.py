@@ -220,19 +220,16 @@ class RAGSystem:
         self._setup_retriever()
 
         # 2. Definir o template do prompt
-        template = """Você é um assistente especializado e prestativo.
-Sua principal tarefa é responder perguntas com base no conteúdo do documento '{doc_name}'.
-Utilize o contexto fornecido abaixo, extraído deste documento, como a fonte primária para sua resposta.
-Você pode sintetizar e elaborar a informação encontrada no contexto para fornecer uma resposta clara e coesa.
-Evite usar conhecimento externo ao documento.
-Se a informação necessária para responder à pergunta não puder ser razoavelmente inferida ou encontrada no contexto fornecido, indique que a informação específica não está detalhada no documento '{doc_name}'.
+        template = """Você é um assistente focado em responder perguntas sobre o documento '{doc_name}'.
+Use o contexto abaixo para basear sua resposta. Seja breve e direto.
+Se o contexto não contiver a resposta, diga que a informação não foi encontrada no documento.
 
-Contexto do documento {doc_name}:
+Contexto:
 {context}
 
-Pergunta do Usuário: {question}
+Pergunta: {question}
 
-Resposta (elaborada com base no contexto do documento '{doc_name}'):"""
+Resposta:"""
         prompt = ChatPromptTemplate.from_template(template)
 
         # 3. Função para formatar os documentos recuperados
