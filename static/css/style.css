@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --background-color: #1a1a1a;
+    --chat-container-bg: rgba(20, 28, 36, 0.7);
+    --header-bg: #0d1b2a;
+    --user-message-bg: #004d40;
+    --bot-message-bg: #00796b;
+    --input-bg: #2c3e50;
+    --text-color: #e0e0e0;
+    --header-text-color: #ffffff;
+    --accent-color: #00ff9a;
+    --border-color: rgba(0, 255, 154, 0.2);
+    --shadow-color: rgba(0, 255, 154, 0.1);
+    --ripple-color: rgba(255, 255, 255, 0.7);
+    --font-family: 'Poppins', sans-serif;
+    --scrollbar-bg: var(--background-color);
+    --scrollbar-thumb-bg: var(--accent-color);
+}
+
+body.light-mode {
+    --background-color: #f4f7f6;
+    --chat-container-bg: rgba(255, 255, 255, 0.8);
+    --header-bg: #2e7d32;
+    --user-message-bg: #4caf50;
+    --bot-message-bg: #e8f5e9;
+    --input-bg: #ffffff;
+    --text-color: #333333;
+    --header-text-color: #ffffff;
+    --accent-color: #4caf50;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --ripple-color: rgba(0, 0, 0, 0.3);
+    --scrollbar-bg: #f1f1f1;
+    --scrollbar-thumb-bg: #4caf50;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    background-image: linear-gradient(45deg, #1a1a1a 0%, #0d1b2a 100%);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: var(--text-color);
+    overflow: hidden;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.light-mode {
+    background-image: none;
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 800px;
+    height: 90vh;
+    background-color: var(--chat-container-bg);
+    border-radius: 15px;
+    box-shadow: 0 8px 24px var(--shadow-color), 0 1px 4px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.chat-header {
+    background-color: var(--header-bg);
+    color: var(--header-text-color);
+    padding: 1.2rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    transition: background-color 0.3s, border-color 0.3s;
+    flex-shrink: 0;
+}
+
+.chat-header .fa-robot {
+    color: var(--accent-color);
+    transition: color 0.3s;
+}
+
+.message-window {
+    flex-grow: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    transition: background-color 0.3s;
+}
+
+.message {
+    display: flex;
+    margin-bottom: 1.2rem;
+    animation: slideInFade 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message.bot {
+    justify-content: flex-start;
+}
+
+.message-bubble {
+    max-width: 80%;
+    padding: 0.8rem 1.3rem;
+    border-radius: 20px;
+    line-height: 1.7;
+    word-wrap: break-word;
+    position: relative;
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+    overflow: hidden; /* For ripple effect */
+}
+
+.message.user .message-bubble {
+    background-color: var(--user-message-bg);
+    color: var(--header-text-color);
+    border-top-right-radius: 5px;
+}
+
+.message.bot .message-bubble {
+    background-color: var(--bot-message-bg);
+    color: var(--text-color);
+    border-top-left-radius: 5px;
+}
+
+.chat-input-form {
+    display: flex;
+    padding: 1rem;
+    background-color: transparent;
+    border-top: 1px solid var(--border-color);
+    transition: border-color 0.3s;
+    flex-shrink: 0;
+}
+
+#question {
+    flex-grow: 1;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    resize: none;
+    margin-right: 0.8rem;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    font-family: var(--font-family);
+}
+
+#question:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px var(--shadow-color);
+}
+
+#send-button {
+    background: var(--accent-color);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s, background-color 0.3s;
+    position: relative;
+    overflow: hidden; /* For ripple effect */
+}
+
+body:not(.light-mode) #send-button {
+    background: linear-gradient(45deg, var(--accent-color), #00bfa5);
+}
+
+#send-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--shadow-color);
+}
+
+#send-button:disabled {
+    background: #555;
+    cursor: not-allowed;
+    transform: scale(1);
+}
+
+#send-button i {
+    color: var(--background-color);
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+/* Ripple Effect */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--ripple-color);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Theme Switcher */
+.theme-switcher {
+    position: absolute;
+    right: 20px;
+}
+
+.theme-switcher input { display: none; }
+
+.theme-switcher label {
+    cursor: pointer;
+    display: block;
+    width: 50px;
+    height: 26px;
+    background-color: #2c3e50;
+    border-radius: 15px;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.theme-switcher label::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #fff;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+}
+
+.theme-switcher .fa-sun, .theme-switcher .fa-moon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #f1c40f;
+}
+
+.theme-switcher .fa-sun { left: 5px; }
+.theme-switcher .fa-moon { right: 5px; color: #f39c12; }
+
+#theme-toggle:checked + label {
+    background-color: #4caf50;
+}
+
+#theme-toggle:checked + label::after {
+    transform: translateX(24px);
+}
+
+/* Feedback Buttons */
+.feedback-container {
+    margin-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 8px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    animation: fadeIn 0.5s 0.5s backwards;
+}
+
+body.light-mode .feedback-container {
+    border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+.feedback-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s, background-color 0.2s;
+    position: relative;
+    overflow: hidden; /* For ripple effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feedback-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.light-mode .feedback-btn {
+    color: var(--text-color);
+}
+
+body.light-mode .feedback-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.feedback-btn.like:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.feedback-btn.dislike:hover {
+    color: #ff5252;
+    border-color: #ff5252;
+}
+
+.feedback-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: transparent !important;
+}
+
+.feedback-btn:disabled.like {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.feedback-btn:disabled.dislike {
+    border-color: #ff5252;
+    color: #ff5252;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-bg); }
+::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb-bg); border-radius: 10px; border: 2px solid var(--scrollbar-bg); }
+::-webkit-scrollbar-thumb:hover { background-color: var(--accent-color); }
+
+/* Animations */
+@keyframes slideInFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1.0); }
+}

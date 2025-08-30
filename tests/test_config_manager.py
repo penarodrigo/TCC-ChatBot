@@ -2,7 +2,7 @@
 # c:\Users\c057545\Downloads\CBCODIMPROVED\tests\test_config_manager.py
 import os
 import pytest
-from rag_gemini_improved import ConfigManager # Importe a classe que você quer testar
+from rag_gemini_system.config import ConfigManager
 
 def test_config_manager_defaults(monkeypatch):
     """Testa se o ConfigManager carrega valores padrão quando as variáveis de ambiente não estão definidas."""

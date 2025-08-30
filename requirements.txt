@@ -1,36 +1,30 @@
 # Core dependencies for RAG System with Google Gemini
-flask==3.0.0
-flask-cors==4.0.0
-Flask-Limiter==2.0.0  # Adicionando versão para Flask-Limiter
-google-generativeai>=0.1.0  # Google Gemini API
+flask[async]
+flask-cors
+
+# Production Web Server
+waitress
 
 # Document processing
-pandas>=2.3.0  # Versão mais recente, mas verifique compatibilidade
-pdfplumber==0.10.0
-python-pptx==0.6.23
-python-docx==0.8.11  # Adicionando versão para python-docx
-openpyxl==3.1.2  # Adicionando versão para openpyxl
+pandas
+pdfplumber
+python-pptx
+python-docx
+openpyxl
 
 # Machine Learning and Embeddings
-sentence-transformers>=3.0.0
-# FAISS (CPU/GPU support)
-# Instale via Conda se necessário:
-# conda install -c pytorch faiss-cpu
-# conda install -c pytorch faiss-gpu
+sentence-transformers
+langchain-huggingface
+langchain-chroma
 
 # Environment and Configuration
-python-dotenv==1.0.0
+python-dotenv
 
-# LangChain dependencies
-langchain>=0.1.0,<0.2.0
-langchain-google-genai>=0.1.0
-langchain-community>=0.0.20
-langchain-huggingface>=0.0.1
-datasets>=2.0.0  # Adicionado para RAGAS
+# LangChain dependencies (modular and updated)
+langchain
+langchain-core
+langchain-google-genai
+langchain-community
 
-# Development and Testing (optional)
-pytest==7.4.3
-pytest-flask==1.3.0
-
-# RAGAS dependency
-ragas
+# The new, recommended Google AI SDK
+google-genai

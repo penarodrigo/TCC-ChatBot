@@ -1,0 +1,102 @@
+1. Qual é o objetivo da instrução IDDC?
+Resposta: Definir diretrizes, critérios, procedimentos e responsabilidades para intervenções em circuitos de Média e Baixa Tensão da Cemig.
+2. O que significa a sigla ASTA?
+Resposta: Abrir, Sinalizar, Testar e Aterrar.
+3. Quais são os tipos de intervenções previstas na IDDC?
+Resposta: Programada, Urgência, Emergência, Simultânea e com Rede Energizada.
+4. Quem é responsável por coordenar intervenções no sistema elétrico da Cemig?
+Resposta: O Centro de Operação da Distribuição (COD).
+5. O que caracteriza uma intervenção emergencial?
+Resposta: Situação crítica com risco de acidente, danos a equipamentos ou desligamento intempestivo, que exige ação imediata.
+6. Quais documentos são obrigatórios para intervenções em circuitos de MT?
+Resposta: Nota de Serviço (NS), Pedido de Liberação de Equipamento (PLE) e Permissão para Trabalho (PT).
+7. O que é uma manobra programada complexa?
+Resposta: Aquela que envolve mais de um equipamento e/ou dispositivo de manobra/proteção.
+8. Qual o prazo mínimo para solicitar manobras complexas?
+Resposta: 13 dias úteis.
+9. Qual o prazo mínimo para solicitar manobras simplificadas?
+Resposta: 10 dias úteis.
+10. Qual o prazo mínimo para ligação de novos consumidores de MT?
+Resposta: 5 dias úteis.
+11. Quem pode ser considerado Pessoa Autorizada?
+Resposta: Pessoa qualificada conforme NR-10, cadastrada no sistema corporativo da Cemig e treinada na IDDC.
+12. Quais são as cores das sinalizações de advertência?
+Resposta: Vermelha, Verde, Azul e Branca.
+13. O que indica a sinalização vermelha?
+Resposta: Equipamento fora de serviço, proibido manobrar.
+14. O que indica a sinalização verde?
+Resposta: Equipamento em serviço, manobra somente com autorização.
+15. O que indica a sinalização azul?
+Resposta: Equipamento em manobra temporária.
+16. O que indica a sinalização branca?
+Resposta: Restrição operativa ou falha, sem relação com intervenção.
+17. O que é considerado uma intervenção simultânea?
+Resposta: Intervenção com atuação de equipes diferentes no mesmo trecho ao mesmo tempo.
+18. O que é uma intervenção de urgência?
+Resposta: Falha ou defeito com risco à segurança ou desligamento intempestivo, exigindo ação rápida.
+19. O que é uma intervenção programada?
+Resposta: Execução de serviços planejados com solicitação feita com antecedência mínima.
+20. O que é uma intervenção com rede energizada?
+Resposta: Intervenção realizada com a rede de Média Tensão energizada.
+21. Quem é o responsável por liberar circuitos para intervenção?
+Resposta: O centro responsável, no âmbito de sua supervisão direta.
+22. O que deve ser feito antes da energização de circuitos novos?
+Resposta: Codificação operacional dos equipamentos no sistema corporativo e sinalização no campo.
+23. O que é o DRA?
+Resposta: Dispositivo de Religamento Automático.
+24. O que é o DST?
+Resposta: Dispositivo de Sensor Terra.
+25. Quando é proibido retirar o DST de serviço?
+Resposta: Durante trabalhos com Média Tensão energizada, se o DRA estiver fora de serviço.
+26. O que é considerado condição requerida?
+Resposta: Condição física dos equipamentos e circuitos que permite a realização segura dos serviços.
+27. Qual a validade do treinamento na IDDC?
+Resposta: 36 meses ou até a próxima revisão da instrução.
+28. O que é uma manobra?
+Resposta: Mudança na configuração ou estado de um circuito elétrico.
+29. O que é uma manobra simplificada?
+Resposta: Desligamento de transformador ou circuito radial com operação de apenas um equipamento.
+30. O que é o SEP?
+Resposta: Sistema Elétrico de Potência.
+31. O que é uma rede de distribuição urbana?
+Resposta: Rede que atende áreas exclusivamente urbanas.
+32. O que é uma rede de distribuição rural?
+Resposta: Rede que atende áreas exclusivamente rurais.
+33. O que é uma rede de distribuição mista?
+Resposta: Rede que atende áreas urbanas e rurais.
+34. O que é o COD?
+Resposta: Centro de Operação da Distribuição.
+35. O que é o CS?
+Resposta: Centro de Serviços.
+36. O que é o PLE?
+Resposta: Pedido de Liberação de Equipamento.
+37. O que é a PT?
+Resposta: Permissão para Trabalho.
+38. O que é o NS?
+Resposta: Nota de Serviço.
+39. O que é o ponto de conexão?
+Resposta: Ponto até o qual a Cemig fornece energia elétrica.
+40. O que é o tronco?
+Resposta: Circuito de MT protegido diretamente pelo equipamento da estação.
+41. O que é o montante?
+Resposta: Ponto elétrico anterior a uma referência.
+42. O que é o jusante?
+Resposta: Ponto elétrico posterior a uma referência.
+43. O que é o disjuntor de acoplamento?
+Resposta: Equipamento que interliga o sistema do acessante com o da Cemig.
+44. O que é o supervisor de serviço?
+Resposta: Pessoa responsável por receber e entregar o circuito ao centro responsável.
+45. O que é o líder de equipe?
+Resposta: Pessoa que garante a execução segura das atividades em campo.
+46. O que é o solicitante da intervenção?
+Resposta: Pessoa capacitada e cadastrada para solicitar intervenções.
+47. O que é o aprovador de solicitações?
+Resposta: Pessoa que analisa e aprova solicitações de intervenções programadas.
+48. O que é o serviço de distribuição?
+Resposta: Conjunto de pessoal e recursos responsáveis pela operação e manutenção das redes.
+49. O que é o equipamento fora de serviço?
+Resposta: Equipamento com função principal interrompida, mas não necessariamente isolado.
+50. O que é o equipamento desenergizado?
+Resposta: Equipamento com ASTA executado, garantindo ausência de tensão.
+51. O que é o equipamento desligado?
+Resposta: Equipamento com ausência de tensão, mas sem garantia de segurança para intervenção.

@@ -1,126 +1,173 @@
 # evaluate_ragas.py
 import os
 import json
+import sys
+import re
+import time
+import argparse
+import traceback
 from datasets import Dataset
 from ragas import evaluate
 from ragas.metrics import (
     faithfulness,
     answer_relevancy,
     context_precision,
-    # context_recall, # Removido pois requer 'ground_truth_contexts' que não temos neste exemplo simples
     answer_correctness,
 )
-# Para RAGAS > 0.1.0, você passa a instância do LLM Langchain diretamente
 from langchain_google_genai import ChatGoogleGenerativeAI
-# Importar FAISS para detecção de GPU, se aplicável
-try:
-    import faiss
-    FAISS_AVAILABLE = True
-except ImportError:
-    FAISS_AVAILABLE = False
-# Se for usar embeddings customizados para RAGAS (ex: para answer_relevancy)
+import torch
 from langchain_community.embeddings import HuggingFaceEmbeddings
-import ragas # Para configurar embeddings globalmente, se necessário
+import ragas
+import google.api_core.exceptions
 
-# Importe seu RAGSystem e ConfigManager
-# A inicialização global em nucleo_rag.py será acionada aqui.
-from nucleo_rag import rag_system_instance, config
+from src.rag_gemini_system.config import ConfigManager
+from src.rag_gemini_system.rag_core import RAGSystem
 
-def run_ragas_evaluation():
-    # 1. Verificação da inicialização (initialize_global_components é chamado na importação)
-    if not rag_system_instance or not config:
-        print("Erro: Sistema RAG ou configuração não inicializados. Verifique nucleo_rag.py.")
+def load_qa_from_file(file_path: str) -> tuple[list[str], list[str]]:
+    """
+    Carrega perguntas e respostas de um arquivo de texto formatado.
+    """
+    questions, ground_truths = [], []
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        pattern = re.compile(r'^\d+\.\s*(.*?)\nResposta:\s*(.*?)$', re.MULTILINE)
+        matches = pattern.findall(content)
+        if matches:
+            questions, ground_truths = [list(t) for t in zip(*matches)]
+    except FileNotFoundError:
+        print(f"Erro: Arquivo de perguntas e respostas '{file_path}' não encontrado.")
+    except Exception as e:
+        print(f"Erro ao ler ou processar o arquivo '{file_path}': {e}")
+    return questions, ground_truths
+
+def create_rag_system():
+    """
+    Cria e inicializa o sistema RAG.
+    """
+    try:
+        config = ConfigManager()
+        rag_system = RAGSystem(config=config)
+        rag_system.initialize()  # Inicializa os modelos e processa os documentos
+        
+        if not rag_system.documents_processed:
+            print(f"Falha ao processar o documento '{config.target_document_name}' durante a inicialização.")
+            return None
+            
+        return rag_system
+    except Exception as e:
+        print(f"Erro ao inicializar o sistema RAG: {e}")
+        traceback.print_exc()
+        return None
+
+def run_ragas_evaluation(qa_file: str, output_file: str, batch_size: int = 0, batch_number: int = 0, delay: int = 6):
+    """
+    Executa a avaliação do RAG com RAGAS, com suporte a processamento em lotes.
+    """
+    config = ConfigManager()
+    rag_system = create_rag_system()
+    if not rag_system:
         return
 
-    # 2. Preparar LLM Juiz para RAGAS
     gemini_api_key = config.google_api_key
     if not gemini_api_key or gemini_api_key == "your_google_api_key_here":
-        print("Chave da API do Google (GOOGLE_API_KEY) não configurada para o LLM juiz do RAGAS. Saindo.")
+        print("Chave da API do Google (GOOGLE_API_KEY) não configurada. Saindo.")
         return
 
     llm_judge = ChatGoogleGenerativeAI(
-        model=config.gemini_model_name,  # Pode ser o mesmo modelo do RAG ou um diferente
+        model=config.gemini_model_name,
         google_api_key=gemini_api_key,
-        temperature=0.0  # Para julgamento, geralmente queremos respostas determinísticas
+        temperature=0.0
     )
 
-    # Configurar embeddings para RAGAS (especialmente para answer_relevancy)
-    # Se não configurado, RAGAS pode usar embeddings da OpenAI por padrão.
-    # Para consistência, use os mesmos embeddings do seu sistema RAG.
     try:
         ragas_embeddings = HuggingFaceEmbeddings(
             model_name=config.embedding_model_name,
-            model_kwargs={'device': 'cuda' if FAISS_AVAILABLE and faiss and faiss.get_num_gpus() > 0 else 'cpu'},
-            encode_kwargs={'normalize_embeddings': True} # E5 models often benefit
+            model_kwargs={'device': 'cuda' if torch.cuda.is_available() else 'cpu'},
+            encode_kwargs={'normalize_embeddings': True}
         )
-        # Algumas versões/métricas do RAGAS podem pegar de ragas.embeddings
-        ragas.embeddings = ragas_embeddings 
+        ragas.embeddings = ragas_embeddings
         print(f"Embeddings para RAGAS configurados com: {config.embedding_model_name}")
     except Exception as e:
         print(f"Aviso: Falha ao configurar embeddings customizados para RAGAS: {e}. RAGAS pode usar defaults.")
+        ragas_embeddings = None
 
+    print(f"Carregando perguntas e respostas de '{qa_file}'...")
+    all_questions, all_ground_truths = load_qa_from_file(qa_file)
 
-    # 3. Coletar/Carregar seu Dataset de Avaliação
-    # Este é um exemplo. Você precisará criar este dataset com perguntas relevantes ao IDDC.pdf.
-    evaluation_questions = [
-        "Qual o objetivo principal do IDDC?",
-        "Quais são as diretrizes para a classificação da informação?",
-        "Quem é responsável por garantir a segurança da informação na CEMIG segundo o IDDC?",
-        "O que o IDDC diz sobre o uso de dispositivos móveis pessoais?"
-    ]
-    ground_truths = [ # Respostas ideais, escritas por um humano, baseadas no IDDC.pdf
-        "O objetivo principal do IDDC é estabelecer diretrizes e responsabilidades para proteger os ativos de informação da CEMIG contra ameaças, garantindo sua confidencialidade, integridade e disponibilidade.",
-        "O IDDC estabelece que a informação deve ser classificada em níveis como Pública, Interna, Confidencial e Restrita, de acordo com sua sensibilidade e impacto para o negócio.",
-        "Segundo o IDDC, a responsabilidade pela segurança da informação é compartilhada, mas a alta administração, gestores de áreas e todos os colaboradores têm papéis específicos na sua proteção.",
-        "O IDDC provavelmente estipula que o uso de dispositivos móveis pessoais para acessar informações corporativas deve seguir políticas específicas de segurança, como uso de senhas fortes, criptografia e instalação de softwares de segurança aprovados."
-    ]
+    if not all_questions:
+        print("Nenhum par de pergunta/resposta foi carregado. Encerrando.")
+        return
 
-    if not rag_system_instance.documents_processed:
-        print(f"Documento '{config.target_document_name}' não processado. Tentando processar agora...")
-        rag_system_instance.process_and_index_documents() # Tenta processar
-        if not rag_system_instance.documents_processed:
-            print(f"Falha ao processar '{config.target_document_name}'. Saindo da avaliação.")
+    # Lógica de processamento em lotes
+    if batch_size > 0 and batch_number > 0:
+        start_index = (batch_number - 1) * batch_size
+        end_index = start_index + batch_size
+        evaluation_questions = all_questions[start_index:end_index]
+        ground_truths = all_ground_truths[start_index:end_index]
+        
+        if not evaluation_questions:
+            print(f"Lote {batch_number} com tamanho {batch_size} está vazio. Nada para processar.")
             return
-    
-    print(f"Sistema RAG focado no documento: {config.target_document_name}")
+            
+        print(f"Processando Lote {batch_number}: {len(evaluation_questions)} de {len(all_questions)} perguntas (índices {start_index} a {end_index-1}).")
+        
+        # Modifica o nome do arquivo de saída para refletir o lote
+        base, ext = os.path.splitext(output_file)
+        output_file = f"{base}_batch_{batch_number}{ext}"
+    else:
+        evaluation_questions = all_questions
+        ground_truths = all_ground_truths
+        print(f"{len(evaluation_questions)} pares de pergunta/resposta carregados (processando todos).")
 
     data_samples_list = []
     print("Coletando dados para avaliação RAGAS...")
     for i, q in enumerate(evaluation_questions):
-        print(f"  Processando pergunta para RAGAS: \"{q}\"")
-        generated_answer = rag_system_instance.get_answer(q)
-        retrieved_contexts = rag_system_instance.get_last_retrieved_contexts()
+        print(f"  Processando pergunta {i+1}/{len(evaluation_questions)}: \"{q}\"")
         
-        if not generated_answer or not generated_answer.strip():
-            print(f"    AVISO: Resposta gerada vazia para a pergunta: '{q}'. Usando placeholder.")
-            generated_answer = "Não foi possível gerar uma resposta."
-        if not retrieved_contexts: # retrieved_contexts é List[str]
-            print(f"    AVISO: Contextos recuperados vazios para a pergunta: '{q}'. Usando placeholder.")
-            retrieved_contexts = ["Nenhum contexto recuperado."]
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                generated_answer = rag_system.get_answer(q)
+                retrieved_contexts = rag_system.get_last_retrieved_contexts()
+                time.sleep(delay) # Pausa para evitar limite de taxa
+                break
+            except google.api_core.exceptions.ResourceExhausted as e:
+                if "per day" in str(e).lower():
+                    print(f"ERRO CRÍTICO: Cota diária da API atingida. {e}")
+                    sys.exit(1)
+                wait_time = (attempt + 1) * 20
+                print(f"    ATINGIU LIMITE DE TAXA. Tentativa {attempt + 1}/{max_retries}. Aguardando {wait_time}s.")
+                time.sleep(wait_time)
+            except Exception as e:
+                print(f"    ERRO INESPERADO: {e}. Pulando pergunta.")
+                generated_answer = "Erro"
+                retrieved_contexts = []
+                break
+        else:
+            print(f"    FALHA APÓS {max_retries} TENTATIVAS. Pulando pergunta.")
+            generated_answer = "Falha"
+            retrieved_contexts = []
 
         data_samples_list.append({
             "question": q,
             "answer": generated_answer,
-            "contexts": retrieved_contexts, 
-            "ground_truth": ground_truths[i] 
+            "contexts": retrieved_contexts or ["Nenhum contexto recuperado."],
+            "ground_truth": ground_truths[i]
         })
 
     if not data_samples_list:
-        print("Nenhum dado de avaliação gerado. Verifique as perguntas e o sistema RAG.")
+        print("Nenhum dado de avaliação gerado.")
         return
 
     dataset = Dataset.from_list(data_samples_list)
     print(f"Dataset de avaliação criado com {len(dataset)} amostras.")
 
-    # 4. Definir Métricas e Avaliar
-    # Para RAGAS > 0.1.0, injete o LLM nas métricas que o requerem.
-    # Especifique embeddings para métricas que os utilizam, como answer_relevancy.
     metrics_to_evaluate = [
-        faithfulness.inject(llm=llm_judge),
-        answer_relevancy.inject(embeddings=ragas_embeddings if 'ragas_embeddings' in locals() else None),
+        faithfulness,
+        answer_relevancy,
         context_precision,
-        # context_recall, # Requer 'ground_truth_contexts' (lista de contextos relevantes esperados)
-        answer_correctness.inject(llm=llm_judge),
+        answer_correctness,
     ]
     
     print("Iniciando avaliação com RAGAS...")
@@ -128,31 +175,32 @@ def run_ragas_evaluation():
         results = evaluate(
             dataset,
             metrics=metrics_to_evaluate,
-            # llm=llm_judge, # Pode ser passado aqui se as métricas não tiverem .inject() ou para um fallback
+            llm=llm_judge,
+            embeddings=ragas_embeddings,
         )
-        print("\nResultados da Avaliação RAGAS (Objeto Dataset do Hugging Face):")
+        print("\nResultados da Avaliação RAGAS:")
         print(results)
         
         results_df = results.to_pandas()
         print("\nResultados da Avaliação RAGAS (DataFrame):")
         print(results_df)
 
-        # Salvar resultados em um arquivo JSON
-        # Convertendo o DataFrame para um formato serializável em JSON
-        results_dict_for_json = results_df.to_dict(orient='records') 
-        
-        output_file = "ragas_evaluation_results.json"
+        results_dict_for_json = results_df.to_dict(orient='records')
         with open(output_file, "w", encoding="utf-8") as f:
             json.dump(results_dict_for_json, f, indent=4, ensure_ascii=False)
         print(f"\nResultados salvos em {output_file}")
 
     except Exception as e:
         print(f"Erro durante a avaliação RAGAS: {e}")
-        import traceback
         traceback.print_exc()
 
 if __name__ == "__main__":
-    # A inicialização dos componentes globais (config, rag_system_instance)
-    # ocorre quando 'rag_gemini_improved' é importado.
-    # load_dotenv já é chamado em rag_gemini_improved.py
-    run_ragas_evaluation()
+    parser = argparse.ArgumentParser(description="Avalia o sistema RAG com RAGAS.")
+    parser.add_argument("--qa_file", type=str, default="perguntas_respostas_IDDC.txt", help="Caminho para o arquivo de perguntas e respostas.")
+    parser.add_argument("--output_file", type=str, default="ragas_evaluation_results.json", help="Caminho para o arquivo de saída dos resultados.")
+    parser.add_argument("--batch_size", type=int, default=0, help="Tamanho do lote para avaliação. Se 0, processa tudo.")
+    parser.add_argument("--batch_number", type=int, default=0, help="Número do lote a ser processado (começa em 1).")
+    parser.add_argument("--delay", type=int, default=6, help="Pausa em segundos entre as perguntas para controlar a taxa de requisições.")
+    args = parser.parse_args()
+    
+    run_ragas_evaluation(args.qa_file, args.output_file, args.batch_size, args.batch_number, args.delay)

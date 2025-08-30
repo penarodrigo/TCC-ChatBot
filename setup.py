@@ -16,7 +16,7 @@ if sys.version_info < (3, 8):
 # Ler o arquivo README
 def read_readme():
     """Lê o arquivo README para a descrição longa"""
-    readme_path = os.path.join(os.path.dirname(__file__), 'readme_md.md') # Corrigido para o nome do arquivo fornecido
+    readme_path = os.path.join(os.path.dirname(__file__), 'README.md') # Corrigido para o nome do arquivo fornecido
     if os.path.exists(readme_path):
         with open(readme_path, 'r', encoding='utf-8') as f:
             return f.read()
@@ -28,22 +28,7 @@ def read_requirements():
     requirements_path = os.path.join(os.path.dirname(__file__), 'requirements.txt')
     if os.path.exists(requirements_path):
         with open(requirements_path, 'r', encoding='utf-8') as f:
-            # Filtrar comentários e linhas vazias
-            # Lê as dependências base do requirements.txt
-            base_requirements = [
-                line.strip() for line in f 
-                if line.strip() and 
-                not line.startswith('#') and
-                not line.startswith('langchain') # Evita duplicar se já estiverem no requirements.txt
-            ]
-            # Adiciona dependências LangChain explicitamente
-            langchain_deps = [
-                'langchain>=0.1.0,<0.2.0',
-                'langchain-google-genai>=0.1.0',
-                'langchain-community>=0.0.20', # Inclui wrappers para FAISS, etc.
-                'langchain-huggingface>=0.0.1', # Para HuggingFaceEmbeddings
-            ]
-            return list(set(base_requirements + langchain_deps)) # Usa set para evitar duplicatas e converte para lista
+            return [line.strip() for line in f if line.strip() and not line.startswith('#')]
     return []
 
 # Configurações do setup
@@ -87,8 +72,8 @@ setup(
     ],
     
     # Configurações de pacotes
-    packages=find_packages(),
-    py_modules=["nucleo_rag"], # Módulo principal do sistema RAG
+    package_dir={'': 'src'},
+    packages=find_packages(where='src'),
     include_package_data=True, # Deve aparecer apenas uma vez
     
     # Versão mínima do Python
@@ -100,12 +85,13 @@ setup(
     # Dependências extras
     extras_require={
         'dev': [
-            'pytest>=7.4.3',
-            'pytest-flask>=1.3.0',
+            'pytest==8.2.2',
+            'pytest-flask==1.3.0',
             'pytest-cov>=4.1.0',
             'black>=23.9.1',
             'flake8>=6.1.0',
-            'datasets>=2.0.0', # Adicionado para RAGAS/avaliação
+            'ragas==0.1.9',
+            'datasets==2.20.0',
             'mypy>=1.6.1',
         ],
         'gpu': [
@@ -115,20 +101,19 @@ setup(
             'sphinx>=7.2.6',
             'sphinx-rtd-theme>=1.3.0',
         ],
-        'eval': [ # Adicionando uma seção específica para avaliação
-            'ragas>=0.1.7', # Supondo que ragas já esteja no requirements.txt ou será adicionado
-            'datasets>=2.0.0',
+        'eval': [
+            'ragas==0.1.9',
+            'datasets==2.20.0',
         ],
         'all': [
-            'pytest>=7.4.3',
-            'pytest-flask>=1.3.0',
+            'pytest==8.2.2',
+            'pytest-flask==1.3.0',
             'pytest-cov>=4.1.0',
             'black>=23.9.1',
             'flake8>=6.1.0',
-            'ragas>=0.1.7', # Adicionando ragas aqui também se for parte do 'all'
-            'datasets>=2.0.0', # Adicionando datasets aqui também
-            'mypy>=1.6.1', # Mantém mypy
-            # 'faiss-gpu>=1.7.4', # Removido de 'all' para evitar problemas de instalação no Windows via pip
+            'ragas==0.1.9',
+            'datasets==2.20.0',
+            'mypy>=1.6.1',
             'sphinx>=7.2.6',
             'sphinx-rtd-theme>=1.3.0',
         ]
@@ -137,8 +122,7 @@ setup(
     # Scripts de linha de comando
       entry_points={
           'console_scripts': [
-              'rag-gemini=nucleo_rag:main',  # Para operações de linha de comando
-              'rag-server=nucleo_rag:run_server', # Para iniciar o servidor web
+              'rag-gemini=rag_gemini_system.cli:main',
           ],
       },
   
@@ -240,5 +224,5 @@ if __name__ == '__main__':
     print("\nPróximos passos:")
     print("1. pip install -e .")
     print("2. Configure sua GOOGLE_API_KEY no arquivo .env")
-    print("3. python nucleo_rag.py (ou use os entry points: rag-gemini / rag-server)")
+    print("3. python -m rag_gemini_system.cli (ou use o entry point: rag-gemini)")
     print("\n Acesse: http://localhost:5000")

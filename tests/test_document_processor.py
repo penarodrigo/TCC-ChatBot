@@ -1,7 +1,6 @@
-# c:\Users\c057545\Downloads\CBCODIMPROVED\tests\test_document_processor.py
 from pathlib import Path
 import pytest
-from rag_gemini_improved import DocumentProcessor
+from rag_gemini_system.document_processor import DocumentProcessor
 
 # Crie uma pasta tests/test_data e coloque arquivos de exemplo lá
 TEST_DATA_DIR = Path(__file__).parent / "test_data"

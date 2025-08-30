@@ -1,0 +1,2 @@
+[console_scripts]
+rag-gemini = rag_gemini_system.cli:main
