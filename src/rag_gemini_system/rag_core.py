@@ -21,6 +21,8 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda, RunnableParallel
 
+from google.cloud import texttospeech
+
 from .config import ConfigManager
 from .document_processor import DocumentProcessor
 
@@ -306,4 +308,60 @@ Resposta (elaborada com base no contexto do documento '{doc_name}'):"""
             full_answer += token
 
         return {"answer": full_answer, "source_documents": source_documents}
+
+    def synthesize_speech(self, text: str) -> Optional[bytes]:
+        """
+        Sintetiza a fala a partir do texto usando o Google Cloud Text-to-Speech.
+
+        Args:
+            text: O texto a ser convertido em fala.
+
+        Returns:
+            Os bytes do conteúdo de áudio ou None se ocorrer um erro.
+        """
+        try:
+            self.logger.info(f"Iniciando síntese de fala para o texto: '{text[:50]}...'")
+            
+            client_options = {
+                "api_endpoint": "texttospeech.googleapis.com",
+                "quota_project_id": self.config.quota_project_id
+            }
+
+            # Instancia o cliente. A autenticação é tratada automaticamente
+            # pelo ambiente (gcloud auth application-default login).
+            client = texttospeech.TextToSpeechClient(client_options=client_options)
+
+            synthesis_input = texttospeech.SynthesisInput(text=text)
+
+            # Configura a voz (pode ser personalizada via config)
+            voice = texttospeech.VoiceSelectionParams(
+                language_code="pt-BR",
+                name="pt-BR-Standard-B",  # Voz feminina
+                ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
+            )
+
+            # Configura o formato do áudio
+            audio_config = texttospeech.AudioConfig(
+                audio_encoding=texttospeech.AudioEncoding.MP3
+            )
+
+            response = client.synthesize_speech(
+                input=synthesis_input,
+                voice=voice,
+                audio_config=audio_config
+            )
+
+            self.logger.info("Síntese de fala concluída com sucesso.")
+            return response.audio_content
+
+        except Exception as e:
+            self.logger.error(f"Falha na síntese de fala: {e}", exc_info=True)
+            # Adicione um log mais detalhado sobre a autenticação
+            if "Could not automatically determine credentials" in str(e):
+                self.logger.error(
+                    "Erro de autenticação com a API Google Text-to-Speech. "
+                    "Verifique se você executou 'gcloud auth application-default login' "
+                    "ou se as credenciais estão configuradas no ambiente."
+                )
+            return None
 

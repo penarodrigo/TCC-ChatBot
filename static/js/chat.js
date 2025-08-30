@@ -94,14 +94,19 @@ document.addEventListener('DOMContentLoaded', () => {
             feedbackContainer.innerHTML = `
                 <button class="feedback-btn like" data-rating="1"><i class="fas fa-thumbs-up"></i></button>
                 <button class="feedback-btn dislike" data-rating="0"><i class="fas fa-thumbs-down"></i></button>
+                <button class="feedback-btn speak" title="Ouvir resposta"><i class="fas fa-volume-up"></i></button>
             `;
             bubbleDiv.appendChild(feedbackContainer);
 
-            feedbackContainer.querySelectorAll('.feedback-btn').forEach(btn => {
+            feedbackContainer.querySelector('.speak').addEventListener('click', (event) => {
+                synthesizeAndPlay(fullAnswer, event.currentTarget);
+            });
+
+            feedbackContainer.querySelectorAll('.feedback-btn:not(.speak)').forEach(btn => {
                 btn.addEventListener('click', (event) => {
                     const rating = event.currentTarget.dataset.rating;
                     sendFeedback(question, fullAnswer, rating);
-                    feedbackContainer.querySelectorAll('.feedback-btn').forEach(button => button.disabled = true);
+                    feedbackContainer.querySelectorAll('.feedback-btn:not(.speak)').forEach(button => button.disabled = true);
                     event.currentTarget.style.transform = 'scale(1.2)';
                 });
             });
@@ -184,6 +189,46 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } catch (error) {
             console.error('Error sending feedback:', error);
+        }
+    }
+
+    async function synthesizeAndPlay(text, button) {
+        const icon = button.querySelector('i');
+        button.disabled = true;
+        icon.classList.remove('fa-volume-up', 'fa-exclamation-circle');
+        icon.classList.add('fa-spinner', 'fa-spin');
+
+        try {
+            const response = await fetch('/api/synthesize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const audioBlob = await response.blob();
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            
+            audio.addEventListener('ended', () => {
+                button.disabled = false;
+                icon.classList.remove('fa-spinner', 'fa-spin');
+                icon.classList.add('fa-volume-up');
+                URL.revokeObjectURL(audioUrl); // Clean up
+            });
+
+            audio.play();
+
+        } catch (error) {
+            console.error('Error synthesizing speech:', error);
+            button.disabled = false;
+            icon.classList.remove('fa-spinner', 'fa-spin');
+            icon.classList.add('fa-exclamation-circle');
         }
     }
 

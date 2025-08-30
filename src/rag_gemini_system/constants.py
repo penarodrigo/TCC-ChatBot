@@ -8,6 +8,7 @@ Este arquivo centraliza valores fixos e padrões para facilitar a manutenção e
 # Nomes de Modelos Padrão
 DEFAULT_EMBEDDING_MODEL = "intfloat/multilingual-e5-large"
 DEFAULT_GEMINI_MODEL = "gemini-pro"
+DEFAULT_QUOTA_PROJECT_ID = "gen-lang-client-0149266971"
 
 # Configurações Padrão do RAG
 DEFAULT_CHUNK_SIZE = 300

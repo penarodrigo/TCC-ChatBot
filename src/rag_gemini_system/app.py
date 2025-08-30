@@ -134,6 +134,22 @@ def create_app():
             logger.error(f"API /api/feedback erro: {e}", exc_info=True)
             return jsonify({"error": "Erro interno ao processar feedback."}) , 500
 
+    @app.route('/api/synthesize', methods=['POST'])
+    def rota_synthesize_api():
+        data = request.get_json()
+        text = data.get('text')
+
+        if not text or not isinstance(text, str) or not text.strip():
+            return jsonify({'error': "O campo 'text' é obrigatório."}), 400
+
+        rag_system = get_rag_system()
+        audio_content = rag_system.synthesize_speech(text)
+
+        if audio_content:
+            return Response(audio_content, mimetype='audio/mpeg')
+        else:
+            return jsonify({'error': 'Falha ao gerar o áudio.'}), 500
+
     @app.route('/', methods=['GET'])
     def interface_usuario_web():
         logger.debug("Acessando /")

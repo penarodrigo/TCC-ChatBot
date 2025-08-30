@@ -28,3 +28,4 @@ langchain-community
 
 # The new, recommended Google AI SDK
 google-genai
+google-cloud-texttospeech

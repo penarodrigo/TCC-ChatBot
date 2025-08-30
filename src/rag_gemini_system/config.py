@@ -25,6 +25,7 @@ class ConfigManager:
 
         # Chaves e Nomes de Modelos
         self.google_api_key: str = os.getenv("GOOGLE_API_KEY", "")
+        self.quota_project_id: str = os.getenv("QUOTA_PROJECT_ID", constants.DEFAULT_QUOTA_PROJECT_ID)
         self.embedding_model_name: str = os.getenv("EMBEDDING_MODEL", constants.DEFAULT_EMBEDDING_MODEL)
         self.gemini_model_name: str = os.getenv("GEMINI_MODEL", constants.DEFAULT_GEMINI_MODEL)
 
