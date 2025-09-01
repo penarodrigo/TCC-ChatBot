@@ -2,7 +2,7 @@
 
 Um sistema de **Retrieval-Augmented Generation (RAG)** robusto e modular, integrado com a API **Google Gemini**. Ele é projetado para processar um documento específico e responder perguntas com base em seu conteúdo, utilizando uma interface de chat moderna e uma API RESTful.
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
+[![Python](https://img.shields.io/badge/Python-3.13+-blue.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.0+-green.svg)](https://flask.palletsprojects.com)
 [![Google Gemini](https://img.shields.io/badge/Google-Gemini-orange.svg)](https://ai.google.dev)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/penarodrigo/rag-gemini-system/blob/main/LICENSE)
@@ -28,7 +28,7 @@ Este projeto foi desenvolvido como uma solução de chatbot focada em responder 
 
 - **Processamento de Múltiplos Formatos**: Suporte nativo para `.pdf`, `.docx`, `.pptx`, `.xlsx`, `.csv` e `.txt`.
 - **Interface de Chat Moderna**: Uma interface web responsiva com streaming de respostas em tempo real para uma experiência de usuário fluida.
-- **Síntese de Voz (Text-to-Speech)**: Converte as respostas do chatbot em áudio com a tecnologia do Google Cloud Text-to-Speech.
+- **Interação por Voz Completa**: Inclui **Síntese de Voz (Text-to-Speech)** para ouvir as respostas e **Reconhecimento de Fala (Speech-to-Text)** para enviar perguntas por áudio, utilizando tecnologias do Google Cloud e do navegador.
 - **Sistema de Feedback**: Permite que os usuários avaliem as respostas (like/dislike), fornecendo dados para futuras melhorias.
 - **Busca Vetorial com ChromaDB**: Utiliza o ChromaDB para buscas de similaridade eficientes, garantindo respostas relevantes.
 - **Cache de Embeddings**: Salva os embeddings gerados para evitar reprocessamento, economizando tempo e recursos da API.
@@ -41,11 +41,11 @@ Este projeto foi desenvolvido como uma solução de chatbot focada em responder 
 ## 🛠 Tecnologias
 
 ### Core
-- **Python 3.8+**
+- **Python 3.13+**
 - **Flask** - Framework web
-- **Google Gemini** - Modelo de linguagem
+- **Google Gemini** - Modelo de linguagem (LLM), configurado para usar `gemini-2.5-flash-lite`.
 - **Google Cloud Text-to-Speech** - Síntese de voz
-- **Sentence-Transformers** - Geração de embeddings de texto
+- **Sentence-Transformers** - Geração de embeddings de texto (usando `paraphrase-multilingual-MiniLM-L12-v2`).
 - **ChromaDB** - Banco de dados vetorial
 
 ### Processamento de Documentos
@@ -63,7 +63,7 @@ Este projeto foi desenvolvido como uma solução de chatbot focada em responder 
 ## 📦 Instalação
 
 ### Pré-requisitos
-- Python 3.8 a 3.12 (Python 3.13 pode apresentar problemas de compatibilidade com algumas bibliotecas)
+- Python 3.13 ou superior
 - Git
 
 ### Instalação Rápida
@@ -107,8 +107,8 @@ QUOTA_PROJECT_ID="seu_project_id_aqui"
 TARGET_DOCUMENT="IDDC.pdf"
 
 # (Opcional) Modelos de embedding e LLM
-EMBEDDING_MODEL="intfloat/multilingual-e5-large"
-GEMINI_MODEL="gemini-pro"
+EMBEDDING_MODEL="paraphrase-multilingual-MiniLM-L12-v2"
+GEMINI_MODEL="gemini-2.5-flash-lite"
 ```
 
 **Importante:**
