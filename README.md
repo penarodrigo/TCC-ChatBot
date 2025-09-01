@@ -28,7 +28,7 @@ Este projeto foi desenvolvido como uma solução de chatbot focada em responder 
 
 - **Processamento de Múltiplos Formatos**: Suporte nativo para `.pdf`, `.docx`, `.pptx`, `.xlsx`, `.csv` e `.txt`.
 - **Interface de Chat Moderna**: Uma interface web responsiva com streaming de respostas em tempo real para uma experiência de usuário fluida.
-- **Síntese de Voz (Text-to-Speech)**: Converte as respostas do chatbot em áudio com a tecnologia do Google Cloud Text-to-Speech.
+- **Interação por Voz Completa**: Inclui **Síntese de Voz (Text-to-Speech)** para ouvir as respostas e **Reconhecimento de Fala (Speech-to-Text)** para enviar perguntas por áudio, utilizando tecnologias do Google Cloud e do navegador.
 - **Sistema de Feedback**: Permite que os usuários avaliem as respostas (like/dislike), fornecendo dados para futuras melhorias.
 - **Busca Vetorial com ChromaDB**: Utiliza o ChromaDB para buscas de similaridade eficientes, garantindo respostas relevantes.
 - **Cache de Embeddings**: Salva os embeddings gerados para evitar reprocessamento, economizando tempo e recursos da API.
@@ -43,7 +43,7 @@ Este projeto foi desenvolvido como uma solução de chatbot focada em responder 
 ### Core
 - **Python 3.8+**
 - **Flask** - Framework web
-- **Google Gemini** - Modelo de linguagem
+- **Google Gemini 1.5 Flash** - Modelo de linguagem principal (LLM)
 - **Google Cloud Text-to-Speech** - Síntese de voz
 - **Sentence-Transformers** - Geração de embeddings de texto
 - **ChromaDB** - Banco de dados vetorial
@@ -108,7 +108,7 @@ TARGET_DOCUMENT="IDDC.pdf"
 
 # (Opcional) Modelos de embedding e LLM
 EMBEDDING_MODEL="intfloat/multilingual-e5-large"
-GEMINI_MODEL="gemini-pro"
+GEMINI_MODEL="gemini-1.5-flash-latest"
 ```
 
 **Importante:**

@@ -22,6 +22,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda, RunnableParallel
 
 from google.cloud import texttospeech
+from google.cloud import speech
 
 from .config import ConfigManager
 from .document_processor import DocumentProcessor
@@ -360,5 +361,45 @@ Resposta:"""
                     "Verifique se você executou 'gcloud auth application-default login' "
                     "ou se as credenciais estão configuradas no ambiente."
                 )
+            return None
+
+    def transcribe_audio(self, audio_data: bytes) -> Optional[str]:
+        """
+        Transcreve o áudio usando o Google Cloud Speech-to-Text.
+
+        Args:
+            audio_data: Os bytes do conteúdo de áudio.
+
+        Returns:
+            O texto transcrito ou None se ocorrer um erro.
+        """
+        try:
+            self.logger.info("Iniciando transcrição de áudio...")
+            
+            client_options = {
+                "api_endpoint": "speech.googleapis.com",
+                "quota_project_id": self.config.quota_project_id
+            }
+            client = speech.SpeechClient(client_options=client_options)
+
+            audio = speech.RecognitionAudio(content=audio_data)
+            config = speech.RecognitionConfig(
+                encoding=speech.RecognitionConfig.AudioEncoding.WEBM_OPUS,
+                sample_rate_hertz=48000,
+                language_code="pt-BR",
+            )
+
+            response = client.recognize(config=config, audio=audio)
+
+            if response.results and response.results[0].alternatives:
+                transcript = response.results[0].alternatives[0].transcript
+                self.logger.info(f"Áudio transcrito com sucesso: '{transcript[:50]}...'")
+                return transcript
+            else:
+                self.logger.warning("Nenhuma transcrição retornada pela API.")
+                return None
+
+        except Exception as e:
+            self.logger.error(f"Falha na transcrição de áudio: {e}", exc_info=True)
             return None
 

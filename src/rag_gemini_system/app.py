@@ -150,6 +150,22 @@ def create_app():
         else:
             return jsonify({'error': 'Falha ao gerar o áudio.'}), 500
 
+    @app.route('/api/transcribe', methods=['POST'])
+    def rota_transcribe_api():
+        if 'file' not in request.files:
+            return jsonify({"error": "Nenhum arquivo de áudio enviado."}), 400
+        
+        audio_file = request.files['file']
+        audio_data = audio_file.read()
+
+        rag_system = get_rag_system()
+        transcript = rag_system.transcribe_audio(audio_data)
+
+        if transcript:
+            return jsonify({"transcript": transcript})
+        else:
+            return jsonify({"error": "Falha ao transcrever o áudio."}), 500
+
     @app.route('/', methods=['GET'])
     def interface_usuario_web():
         logger.debug("Acessando /")

@@ -5,6 +5,66 @@ document.addEventListener('DOMContentLoaded', () => {
     const questionInput = document.getElementById('question');
     const messageWindow = document.getElementById('message-window');
     const sendButton = document.getElementById('send-button');
+    const micButton = document.getElementById('mic-button');
+
+    let mediaRecorder;
+    let audioChunks = [];
+    let recordingTimeout;
+
+    micButton.addEventListener('mousedown', async () => {
+        if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm;codecs=opus' });
+                
+                mediaRecorder.ondataavailable = event => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    clearTimeout(recordingTimeout); // Clear timeout if stopped manually
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm;codecs=opus' });
+                    audioChunks = [];
+                    const formData = new FormData();
+                    formData.append('file', audioBlob, 'recording.webm');
+
+                    try {
+                        const response = await fetch('/api/transcribe', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        const data = await response.json();
+                        if (data.transcript) {
+                            questionInput.value = data.transcript;
+                        }
+                    } catch (error) {
+                        console.error('Error transcribing audio:', error);
+                    }
+                };
+
+                mediaRecorder.start();
+                micButton.classList.add('recording');
+
+                // Set 15-second timeout
+                recordingTimeout = setTimeout(() => {
+                    if (mediaRecorder && mediaRecorder.state === 'recording') {
+                        mediaRecorder.stop();
+                        micButton.classList.remove('recording');
+                    }
+                }, 15000); // 15 seconds
+
+            } catch (error) {
+                console.error('Error accessing microphone:', error);
+            }
+        }
+    });
+
+    micButton.addEventListener('mouseup', () => {
+        if (mediaRecorder && mediaRecorder.state === 'recording') {
+            mediaRecorder.stop();
+            micButton.classList.remove('recording');
+        }
+    });
 
     // Apply cached theme on load
     const savedTheme = localStorage.getItem('theme');
