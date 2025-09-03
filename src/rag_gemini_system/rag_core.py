@@ -222,9 +222,7 @@ class RAGSystem:
         self._setup_retriever()
 
         # 2. Definir o template do prompt
-        template = """Você é um assistente focado em responder perguntas sobre o documento '{doc_name}'.
-Use o contexto abaixo para basear sua resposta. Seja breve e direto.
-Se o contexto não contiver a resposta, diga que a informação não foi encontrada no documento.
+        template = """Use **exclusivamente** os trechos de documento abaixo para responder à pergunta. Se a resposta não estiver no contexto, diga "A informação não foi encontrada no documento."
 
 Contexto:
 {context}
@@ -263,7 +261,7 @@ Resposta:"""
         base_retriever = self.vector_store.as_retriever(
             search_type="similarity",
             # Recupera mais documentos para o re-ranker ter mais opções
-            search_kwargs={"k": self.config.max_context_docs * 5} 
+            search_kwargs={"k": self.config.max_context_docs * 2} 
         )
 
         try:
