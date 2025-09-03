@@ -64,6 +64,8 @@ def run_ragas_evaluation(qa_file: str, output_file: str, batch_size: int = 0, ba
     """
     Executa a avaliação do RAG com RAGAS, com suporte a processamento em lotes.
     """
+    start_time = time.perf_counter()
+
     config = ConfigManager()
     rag_system = create_rag_system()
     if not rag_system:
@@ -130,7 +132,8 @@ def run_ragas_evaluation(qa_file: str, output_file: str, batch_size: int = 0, ba
             try:
                 generated_answer = rag_system.get_answer(q)['answer']
                 retrieved_contexts = rag_system.get_last_retrieved_contexts()
-                time.sleep(delay) # Pausa para evitar limite de taxa
+                if delay > 0:
+                    time.sleep(delay) # Pausa para evitar limite de taxa
                 break
             except google.api_core.exceptions.ResourceExhausted as e:
                 if "per day" in str(e).lower():
@@ -193,6 +196,12 @@ def run_ragas_evaluation(qa_file: str, output_file: str, batch_size: int = 0, ba
     except Exception as e:
         print(f"Erro durante a avaliação RAGAS: {e}")
         traceback.print_exc()
+
+    end_time = time.perf_counter()
+    total_time = end_time - start_time
+    print(f"\n--- Relatório de Tempo ---")
+    print(f"Tempo total de execução: {total_time:.2f} segundos")
+    print(f"--------------------------")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Avalia o sistema RAG com RAGAS.")
