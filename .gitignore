@@ -8,3 +8,6 @@ venv/
 htmlcov/
 .cache_embeddings/
 .vector_store/
+
+# Arquivos de resultado de avaliação
+*.json

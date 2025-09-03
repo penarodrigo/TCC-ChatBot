@@ -67,6 +67,7 @@ class RAGSystem:
         self.retriever: Optional[ContextualCompressionRetriever] = None
         self.rag_chain: Optional[RunnableLambda] = None
         self.documents_processed = False
+        self.last_retrieved_contexts: List[str] = []
 
     def initialize(self):
         """Inicializa os modelos e componentes pesados e constrói a cadeia RAG."""
@@ -301,11 +302,18 @@ Resposta:"""
         """
         full_answer = ""
         source_documents = self.get_source_documents(question)
+        self.last_retrieved_contexts = [doc.page_content for doc in source_documents]
         
         for token in self.stream_answer(question):
             full_answer += token
 
         return {"answer": full_answer, "source_documents": source_documents}
+
+    def get_last_retrieved_contexts(self) -> List[str]:
+        """
+        Retorna os contextos que foram recuperados na última chamada a get_answer.
+        """
+        return self.last_retrieved_contexts
 
     def synthesize_speech(self, text: str) -> Optional[bytes]:
         """

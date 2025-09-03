@@ -128,7 +128,7 @@ def run_ragas_evaluation(qa_file: str, output_file: str, batch_size: int = 0, ba
         max_retries = 3
         for attempt in range(max_retries):
             try:
-                generated_answer = rag_system.get_answer(q)
+                generated_answer = rag_system.get_answer(q)['answer']
                 retrieved_contexts = rag_system.get_last_retrieved_contexts()
                 time.sleep(delay) # Pausa para evitar limite de taxa
                 break
