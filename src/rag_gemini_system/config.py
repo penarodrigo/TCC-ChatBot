@@ -28,6 +28,7 @@ class ConfigManager:
         self.quota_project_id: str = os.getenv("QUOTA_PROJECT_ID", constants.DEFAULT_QUOTA_PROJECT_ID)
         self.embedding_model_name: str = os.getenv("EMBEDDING_MODEL", constants.DEFAULT_EMBEDDING_MODEL)
         self.gemini_model_name: str = os.getenv("GEMINI_MODEL", constants.DEFAULT_GEMINI_MODEL)
+        self.cross_encoder_model_name: str = os.getenv("CROSS_ENCODER_MODEL", constants.DEFAULT_CROSS_ENCODER_MODEL)
 
         # Configurações do RAG
         try:

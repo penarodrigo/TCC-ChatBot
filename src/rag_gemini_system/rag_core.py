@@ -259,14 +259,31 @@ Resposta:"""
 
     def _setup_retriever(self):
         """Configura o retriever, aplicando o re-ranker se disponível."""
+        self.logger.info("Configurando o retriever...")
         base_retriever = self.vector_store.as_retriever(
             search_type="similarity",
-            search_kwargs={"k": self.config.max_context_docs * 3}
+            # Recupera mais documentos para o re-ranker ter mais opções
+            search_kwargs={"k": self.config.max_context_docs * 5} 
         )
 
-        # Desativando o re-ranking para melhorar a performance
-        self.retriever = base_retriever
-        self.logger.info("Retriever configurado SEM re-ranking (para performance).")
+        try:
+            self.logger.info(f"Inicializando CrossEncoderReranker com o modelo: {self.config.cross_encoder_model_name}")
+            reranker_model = CrossEncoder(self.config.cross_encoder_model_name)
+            
+            compressor = CrossEncoderReranker(
+                model=reranker_model, 
+                top_k=self.config.max_context_docs
+            )
+            
+            self.retriever = ContextualCompressionRetriever(
+                base_compressor=compressor, 
+                base_retriever=base_retriever
+            )
+            self.logger.info("Retriever configurado COM re-ranking (CrossEncoder).")
+        except Exception as e:
+            self.logger.error(f"Falha ao inicializar o CrossEncoderReranker: {e}. Usando retriever base SEM re-ranking.", exc_info=True)
+            # Fallback para o retriever base se o re-ranker falhar
+            self.retriever = base_retriever
 
     def get_source_documents(self, question: str) -> List[LangChainDocument]:
         """

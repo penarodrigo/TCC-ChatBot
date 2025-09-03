@@ -9,6 +9,7 @@ Este arquivo centraliza valores fixos e padrões para facilitar a manutenção e
 DEFAULT_EMBEDDING_MODEL = "intfloat/multilingual-e5-large"
 DEFAULT_GEMINI_MODEL = "gemini-pro"
 DEFAULT_QUOTA_PROJECT_ID = "gen-lang-client-0149266971"
+DEFAULT_CROSS_ENCODER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
 # Configurações Padrão do RAG
 DEFAULT_CHUNK_SIZE = 250
