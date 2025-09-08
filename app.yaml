@@ -1,0 +1,2 @@
+runtime: python312
+entrypoint: gunicorn -b :$PORT 'src.rag_gemini_system.app:create_app()'

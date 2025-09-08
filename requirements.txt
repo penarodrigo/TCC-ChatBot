@@ -4,6 +4,7 @@ flask-cors
 
 # Production Web Server
 waitress
+gunicorn
 
 # Document processing
 pandas
