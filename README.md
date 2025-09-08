@@ -115,6 +115,37 @@ GEMINI_MODEL="gemini-2.5-flash-lite"
 - A `GOOGLE_API_KEY` é essencial para a comunicação com a API do Gemini.
 - A `QUOTA_PROJECT_ID` é necessária se você estiver usando as credenciais padrão da aplicação (`gcloud auth application-default login`) para a funcionalidade de Text-to-Speech.
 
+## 🚀 Deploy (Publicação na Web)
+
+Este projeto está configurado para ser publicado na web usando o **Google App Engine**.
+
+### Pré-requisitos
+- Um projeto no Google Cloud com o faturamento ativado.
+- A [CLI do Google Cloud](https://cloud.google.com/sdk/docs/install) instalada e autenticada (`gcloud auth login`). (Já vem instalado no Cloud Shell).
+
+### Arquivos de Configuração
+O deploy é controlado por dois arquivos principais:
+
+1.  **`requirements.txt`**: Deve conter o `gunicorn`, que é o servidor web de produção usado pelo App Engine.
+2.  **`app.yaml`**: Arquivo de configuração que diz ao App Engine como executar a aplicação. O conteúdo deve ser:
+    ```yaml
+    runtime: python312
+    entrypoint: gunicorn -b :$PORT 'src.rag_gemini_system.app:create_app()'
+    ```
+
+### Passo a Passo do Deploy
+Com os arquivos acima configurados e o código no GitHub, execute o seguinte comando no terminal (preferencialmente no Google Cloud Shell):
+
+```bash
+# 1. Configure seu projeto no gcloud (só precisa fazer uma vez)
+gcloud config set project SEU_PROJECT_ID
+
+# 2. Execute o deploy
+gcloud app deploy
+```
+- O App Engine irá pedir para você confirmar a região na primeira vez.
+- Após alguns minutos, o comando irá retornar uma URL pública onde sua aplicação estará acessível.
+
 ## 🌐 API Endpoints
 
 A aplicação expõe os seguintes endpoints:
